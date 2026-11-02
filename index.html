@@ -1,0 +1,3541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F6F0E4">
+<title>汪汪人格 DOGE·16 | 测测你是哪种狗</title>
+<meta name="description" content="20 道题，拆出你的犬格。比你自己更懂你的，可能真是一条狗。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
+<style>
+/* ==========================================================
+   DOGE·16 —— 汪汪人格
+   视觉：奶油纸感 + 粗描边贴纸 + 巨型字
+   ========================================================== */
+
+:root {
+  --cream: #F5EEE0;
+  --paper: #FFFCF5;
+  --ink: #1E1A16;
+  --ink-2: #4A4238;
+  --ink-3: #8A7F70;
+  --line: #1E1A16;
+  --accent: #F15A24;
+  --accent-2: #FFD34D;
+  --blue: #3B5BF5;
+  --mint: #A8E6C8;
+  --pink: #FFC2D1;
+  --shadow: 7px 7px 0 var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --radius: 18px;
+  --maxw: 1120px;
+  --ease: cubic-bezier(.22, .9, .3, 1);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button { font: inherit; color: inherit; }
+h1, h2, h3, h4, p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+::selection { background: var(--accent); color: var(--paper); }
+
+/* ---------- 背景层 ---------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: .16;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+.bg-shape {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(70px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: .5;
+}
+.bg-shape-1 {
+  width: 520px; height: 520px;
+  background: #FFD9A8;
+  top: -220px; right: -140px;
+}
+.bg-shape-2 {
+  width: 460px; height: 460px;
+  background: #C9E8DC;
+  bottom: -240px; left: -180px;
+}
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px max(24px, calc((100vw - var(--maxw)) / 2 + 24px));
+  background: rgba(245, 238, 224, .82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(30, 26, 22, .08);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.brand-mark { font-size: 20px; transform: rotate(-12deg); display: inline-block; }
+.brand-name {
+  font-family: "Helvetica Neue", "Arial Black", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 21px;
+  letter-spacing: -.02em;
+}
+.brand-dot { color: var(--accent); }
+.brand-sub {
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: var(--ink-3);
+  padding-left: 8px;
+  border-left: 1px solid rgba(30, 26, 22, .25);
+  margin-left: 2px;
+}
+
+.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 7px 8px 7px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.ghost-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+.ghost-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.ghost-btn .count {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: .04em;
+}
+
+/* ---------- 舞台 ---------- */
+.stage {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 max(24px, 4vw);
+}
+
+.screen { display: none; }
+.screen.is-active { display: block; animation: screenIn .5s var(--ease) both; }
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- 落地页 ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  gap: 40px;
+  align-items: center;
+  padding: 48px 0 54px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--ink-2);
+  background: rgba(255, 252, 245, .7);
+  border: 1px solid rgba(30, 26, 22, .18);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(241, 90, 36, .5);
+  animation: pulse 2.2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(241, 90, 36, .45); }
+  70% { box-shadow: 0 0 0 8px rgba(241, 90, 36, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(241, 90, 36, 0); }
+}
+
+.hero-title {
+  margin: 22px 0 0;
+  font-size: clamp(54px, 8vw, 96px);
+  font-weight: 900;
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+.title-mark {
+  position: relative;
+  display: inline-block;
+  color: var(--accent);
+  padding-right: .04em;
+}
+.title-scribble {
+  position: absolute;
+  left: -2%;
+  bottom: -12px;
+  width: 104%;
+  height: 22px;
+  color: var(--accent);
+  opacity: .85;
+}
+
+.lede {
+  margin-top: 26px;
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--ink-2);
+}
+.lede b {
+  font-weight: 800;
+  color: var(--ink);
+  background: linear-gradient(transparent 58%, var(--accent-2) 58%, var(--accent-2) 92%, transparent 92%);
+  padding: 0 2px;
+}
+
+.cta-row {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 15px 26px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .16s var(--ease), box-shadow .16s var(--ease), background .16s;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--cream);
+  box-shadow: 5px 5px 0 var(--accent);
+}
+.btn-primary:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--accent); }
+.btn-primary:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--accent); }
+.btn-ghost {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+.btn-ghost:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.btn-ghost:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
+.btn-arrow {
+  display: inline-block;
+  transition: transform .2s var(--ease);
+}
+.btn:hover .btn-arrow { transform: translateX(5px); }
+
+.cta-meta {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--ink-3);
+}
+
+.resume {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  background: transparent;
+  border: 1px dashed rgba(30, 26, 22, .35);
+  border-radius: 999px;
+  padding: 6px 14px 6px 6px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.resume:hover { background: rgba(255, 252, 245, .8); border-color: var(--ink); }
+.resume[hidden] { display: none; }
+.resume-dog {
+  position: relative;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  border: 1.5px solid var(--ink);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.resume-dog .mark { font-size: 16px; }
+.resume-text { font-size: 12.5px; color: var(--ink-2); }
+.resume-text b { font-weight: 800; color: var(--ink); }
+.resume-text i {
+  font-style: normal;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--cream);
+}
+.resume-arrow { font-size: 12px; font-weight: 700; color: var(--accent); }
+
+/* 英雄视觉 */
+.hero-art {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 460px;
+}
+
+.id-card {
+  position: relative;
+  width: min(330px, 78vw);
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 22px;
+  padding: 14px;
+  box-shadow: 11px 11px 0 var(--ink);
+  transform: rotate(-3.5deg);
+  animation: cardFloat 7s ease-in-out infinite;
+}
+@keyframes cardFloat {
+  0%, 100% { transform: rotate(-3.5deg) translateY(0); }
+  50% { transform: rotate(-2deg) translateY(-9px); }
+}
+.id-card-top {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Helvetica Neue", monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: var(--ink-3);
+  padding: 2px 4px 10px;
+}
+.id-card-art {
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--accent-2);
+  overflow: hidden;
+  position: relative;
+}
+.id-card-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(30, 26, 22, .16) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: .5;
+  pointer-events: none;
+}
+.id-card-art .mark { font-size: 60px; }
+.id-card-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 10px 6px;
+}
+.id-breed { font-size: 24px; font-weight: 900; letter-spacing: -.02em; }
+.id-en {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 3px;
+}
+.id-title-wrap { text-align: right; max-width: 112px; flex: none; }
+.id-title-label {
+  display: block;
+  font-size: 8px;
+  letter-spacing: .2em;
+  color: var(--ink-3);
+  margin-bottom: 3px;
+}
+.id-title {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  color: var(--accent);
+  text-align: right;
+  word-break: keep-all;
+}
+.barcode {
+  margin: 8px 4px 2px;
+  height: 16px;
+  background-image: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 7px, transparent 7px 9px, var(--ink) 9px 10px, transparent 10px 14px);
+  opacity: .75;
+}
+.tape {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 120px;
+  height: 30px;
+  background: rgba(255, 255, 255, .48);
+  border: 1px solid rgba(30, 26, 22, .12);
+  transform: translateX(-50%) rotate(-2deg);
+  z-index: 3;
+  backdrop-filter: blur(2px);
+}
+
+.sticker {
+  position: absolute;
+  z-index: 4;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.3;
+  padding: 8px 13px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--ink);
+  white-space: nowrap;
+}
+.sticker small { font-size: 9px; font-weight: 600; opacity: .6; }
+.sticker-a {
+  background: var(--mint);
+  top: 10%;
+  left: -2%;
+  transform: rotate(-9deg);
+  animation: tiltA 6s ease-in-out infinite;
+}
+.sticker-b {
+  background: var(--pink);
+  right: -4%;
+  bottom: 16%;
+  transform: rotate(7deg);
+  animation: tiltB 7s ease-in-out infinite;
+}
+@keyframes tiltA {
+  0%, 100% { transform: rotate(-9deg) translateY(0); }
+  50% { transform: rotate(-6deg) translateY(-8px); }
+}
+@keyframes tiltB {
+  0%, 100% { transform: rotate(7deg) translateY(0); }
+  50% { transform: rotate(4deg) translateY(8px); }
+}
+
+/* 跑马灯 */
+.marquee {
+  margin: 8px -100vw 0;
+  padding: 12px 100vw;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  background: var(--accent-2);
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.marquee-item .m-title {
+  font-size: 11px;
+  color: rgba(30, 26, 22, .6);
+}
+.marquee-item .paw { opacity: .5; font-size: 11px; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* how */
+.how {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  padding: 56px 0 40px;
+}
+.how-item { border-top: 2px solid var(--ink); padding-top: 18px; }
+.how-num {
+  font-family: "Arial Black", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  letter-spacing: .1em;
+  color: var(--accent);
+}
+.how-item h3 { margin: 8px 0 8px; font-size: 19px; font-weight: 800; letter-spacing: -.01em; }
+.how-item p { font-size: 13.5px; line-height: 1.75; color: var(--ink-2); }
+
+.foot {
+  border-top: 1px solid rgba(30, 26, 22, .14);
+  padding: 24px 0 40px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--ink-3);
+}
+.foot-small { font-size: 11px; opacity: .8; }
+
+/* ---------- 答题页 ---------- */
+.screen-quiz { min-height: calc(100vh - 90px); }
+.quiz-shell {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 34px 0 12vh;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 100px);
+}
+
+.quiz-top { display: flex; align-items: center; gap: 16px; }
+
+.icon-btn {
+  width: 38px; height: 38px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 11px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform .14s var(--ease), box-shadow .14s var(--ease);
+}
+.icon-btn:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
+.icon-btn:active { transform: translate(1px, 1px); box-shadow: 0 0 0 var(--ink); }
+
+.progress {
+  flex: 1;
+  height: 12px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: repeating-linear-gradient(-45deg, var(--accent) 0 8px, #FF7A45 8px 16px);
+  border-right: 2px solid var(--ink);
+  transition: width .45s var(--ease);
+}
+.quiz-count {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  color: var(--ink-3);
+  min-width: 48px;
+  text-align: right;
+  flex: none;
+}
+.quiz-count b { font-size: 20px; color: var(--ink); font-weight: 900; }
+
+.question-wrap { margin: auto 0; padding-top: 18px; }
+
+.q-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+.q-index {
+  font-family: "Helvetica Neue", monospace;
+  font-weight: 700;
+  color: var(--accent);
+}
+.q-axis {
+  color: var(--ink-3);
+  border-left: 1px solid rgba(30, 26, 22, .25);
+  padding-left: 10px;
+}
+
+.q-text {
+  margin-top: 16px;
+  font-size: clamp(25px, 3.4vw, 38px);
+  font-weight: 900;
+  line-height: 1.38;
+  letter-spacing: -.03em;
+  max-width: 22em;
+  text-wrap: balance;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: clamp(24px, 4vh, 38px);
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  padding: 16px 16px 18px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.55;
+  transition: transform .16s var(--ease), box-shadow .16s var(--ease), background .16s;
+}
+.option:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); background: #FFFDF8; }
+.option:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.option:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.option .opt-icon {
+  font-size: 23px;
+  line-height: 1;
+  flex: none;
+  margin-top: 2px;
+  filter: saturate(.9);
+}
+.option .opt-body { flex: 1; }
+.option .opt-key {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  color: var(--ink-3);
+  opacity: .55;
+}
+.option.is-picked {
+  background: var(--accent-2);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.option.is-dim { opacity: .4; }
+
+.q-foot {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.text-btn {
+  background: none;
+  border: 0;
+  padding: 6px 0;
+  font-size: 13px;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: color .2s;
+}
+.text-btn:hover { color: var(--ink); }
+.text-btn[disabled] { opacity: 0; pointer-events: none; }
+.q-hint { font-size: 11px; color: var(--ink-3); }
+kbd {
+  font-family: "Helvetica Neue", monospace;
+  font-size: 10px;
+  border: 1px solid rgba(30, 26, 22, .3);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 4px;
+  background: var(--paper);
+}
+
+.question-wrap.q-out { animation: qOut .16s ease forwards; }
+.question-wrap.q-in { animation: qIn .3s var(--ease) both; }
+@keyframes qOut {
+  to { opacity: 0; transform: translateX(-16px); }
+}
+@keyframes qIn {
+  from { opacity: 0; transform: translateX(22px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- 结果页 ---------- */
+.result-shell {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 30px 0 80px;
+}
+
+.result-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 26px;
+  align-items: center;
+  padding: 26px 30px;
+  background: var(--dog-accent, var(--accent-2));
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+  box-shadow: 9px 9px 0 var(--ink);
+  overflow: hidden;
+  animation: heroPop .6s var(--ease) both;
+}
+@keyframes heroPop {
+  from { opacity: 0; transform: scale(.96) translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+.result-hero::before {
+  content: "DOGE·16";
+  position: absolute;
+  right: -12px;
+  bottom: -22px;
+  font-family: "Arial Black", sans-serif;
+  font-size: 110px;
+  font-weight: 900;
+  letter-spacing: -.04em;
+  color: rgba(30, 26, 22, .07);
+  pointer-events: none;
+  line-height: 1;
+}
+.result-dog {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 1 / 1;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 rgba(30, 26, 22, .9);
+}
+.result-dog .mark { font-size: 66px; }
+
+.result-main { position: relative; z-index: 1; }
+.result-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.result-no {
+  font-family: "Helvetica Neue", monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: rgba(30, 26, 22, .45);
+}
+.result-breed {
+  margin-top: 8px;
+  font-size: clamp(46px, 6.4vw, 68px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+.result-sub {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.result-sub .en {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(30, 26, 22, .5);
+}
+.result-sub .result-title { margin-top: 0; }
+.trait-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+.trait-chip {
+  font-size: 11.5px;
+  font-weight: 800;
+  background: rgba(255, 252, 245, .72);
+  border: 1.5px solid var(--ink);
+  border-radius: 6px;
+  padding: 4px 9px;
+}
+.rarity {
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 5px 10px;
+  white-space: nowrap;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.result-name {
+  margin-top: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.result-name h2 {
+  font-size: clamp(30px, 4.6vw, 44px);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  line-height: 1.1;
+}
+.result-name .en {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(30, 26, 22, .5);
+}
+.result-title {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 5px 12px;
+  border-radius: 6px;
+  transform: rotate(-1.5deg);
+}
+.result-quote {
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 600;
+  color: rgba(30, 26, 22, .7);
+}
+
+.result-desc {
+  margin: 30px auto 0;
+  max-width: 660px;
+  font-size: 16px;
+  line-height: 1.9;
+  text-align: center;
+  color: var(--ink-2);
+}
+
+.result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.tag {
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 13px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.dims {
+  margin-top: 34px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  padding: 24px 26px;
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 40px;
+}
+.dim-name {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: var(--ink-3);
+  margin-bottom: 7px;
+}
+.dim-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.dim-side { display: inline-flex; align-items: baseline; gap: 5px; color: var(--ink-3); font-weight: 600; }
+.dim-side b {
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  opacity: .55;
+}
+.dim-side.is-on { color: var(--ink); font-weight: 900; }
+.dim-side.is-on b { opacity: .85; }
+
+.dim-track {
+  position: relative;
+  height: 13px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--cream);
+  overflow: hidden;
+}
+.dim-fill {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 50%;
+  background: var(--dog-deep, var(--accent-2));
+  border-right: 2px solid var(--ink);
+  transition: width .9s var(--ease);
+}
+.dim-axis-label {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  font-size: 10px;
+  color: var(--ink-3);
+  letter-spacing: .04em;
+}
+
+.panels {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+.panel {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  padding: 18px 18px 20px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  margin-bottom: 12px;
+}
+.panel h3::before {
+  content: "";
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  flex: none;
+}
+.panel li {
+  position: relative;
+  padding-left: 13px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin-bottom: 7px;
+}
+.panel li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 900;
+}
+.panel p { font-size: 12.5px; line-height: 1.75; color: var(--ink-2); }
+.panel-warn { background: #FFF1E9; }
+.panel-warn h3::before { background: var(--pink); }
+
+.matches {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.match {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+}
+.match:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+.match-dog {
+  position: relative;
+  width: 58px; height: 58px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: var(--match-accent);
+  overflow: hidden;
+}
+.match-dog .mark { font-size: 22px; }
+.match-body { min-width: 0; }
+.match-label {
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--ink-3);
+  font-weight: 700;
+}
+.match-name { font-size: 15px; font-weight: 800; margin-top: 2px; }
+.match-name em {
+  font-style: normal;
+  font-size: 10px;
+  color: var(--ink-3);
+  margin-left: 6px;
+  font-weight: 600;
+}
+.match-why { font-size: 11px; color: var(--ink-2); margin-top: 3px; line-height: 1.5; }
+
+.id-strip {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 2px dashed rgba(30, 26, 22, .45);
+  border-radius: 12px;
+  padding: 13px 18px;
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  color: var(--ink-3);
+  flex-wrap: wrap;
+}
+.id-strip b {
+  font-family: "Helvetica Neue", monospace;
+  color: var(--ink);
+  letter-spacing: .06em;
+}
+.id-strip .sep { flex: 1; height: 1px; background: rgba(30, 26, 22, .15); min-width: 20px; }
+
+.result-actions {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+}
+.result-actions .btn { flex: none; }
+.result-actions .spacer { flex: 1; }
+
+.disclaimer {
+  margin-top: 26px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--ink-3);
+  line-height: 1.8;
+}
+
+/* ---------- 弹层 ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal.is-open { display: flex; }
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 20, 16, .55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fadeIn .25s ease both;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(880px, 100%);
+  max-height: min(92vh, 980px);
+  overflow: auto;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 22px;
+  box-shadow: 10px 10px 0 rgba(30, 26, 22, .9);
+  padding: 24px 26px 26px;
+  animation: modalIn .35s var(--ease) both;
+  overscroll-behavior: contain;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(22px) scale(.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.modal-kicker {
+  font-size: 10px;
+  letter-spacing: .18em;
+  color: var(--accent);
+  font-weight: 800;
+}
+.modal-head h2 {
+  margin-top: 6px;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+.close-btn { flex: none; }
+
+.modal-sub {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: .02em;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+}
+.g-card {
+  position: relative;
+  text-align: left;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 7px;
+  cursor: pointer;
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.g-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+.g-card-art {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 1.5px solid var(--ink);
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--g-accent, var(--accent-2));
+}
+.g-card-art .mark { font-size: 42px; }
+.g-card-info { padding: 6px 2px 1px; }
+.g-card-name { font-size: 13px; font-weight: 800; line-height: 1.2; }
+.g-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 9px;
+  color: var(--ink-3);
+}
+.g-card-meta span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.g-card-meta span:last-child { flex: none; }
+.g-card.is-you { border-color: var(--accent); box-shadow: 3px 3px 0 var(--accent); }
+.g-you {
+  position: absolute;
+  top: 4px; right: 4px;
+  z-index: 2;
+  background: var(--accent);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1.5px solid var(--paper);
+}
+
+.g-detail-back {
+  background: none;
+  border: 0;
+  padding: 0 0 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-3);
+  cursor: pointer;
+}
+.g-detail-back:hover { color: var(--ink); }
+.g-detail-top {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 22px;
+  align-items: center;
+}
+.g-detail-art {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--g-accent, var(--accent-2));
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.g-detail-art .mark { font-size: 50px; }
+.g-detail-code {
+  font-family: "Arial Black", sans-serif;
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -.02em;
+}
+.g-detail-name { font-size: 24px; font-weight: 900; margin-top: 2px; }
+.g-detail-quote { margin-top: 10px; font-size: 13px; line-height: 1.7; color: var(--ink-2); }
+.g-detail-body { margin-top: 18px; }
+.g-detail-body .panel { box-shadow: 2px 2px 0 var(--ink); }
+.g-detail-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 14px; }
+.g-detail-tags .tag { font-size: 11px; padding: 4px 10px; box-shadow: none; }
+.g-detail-note {
+  margin-top: 16px;
+  font-size: 11.5px;
+  color: var(--ink-3);
+  line-height: 1.8;
+  border-top: 1px dashed rgba(30, 26, 22, .3);
+  padding-top: 12px;
+}
+
+.modal-share { width: min(520px, 100%); text-align: center; }
+.modal-share .modal-head { text-align: left; }
+.share-preview {
+  background: #E8DFCF;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+.share-preview canvas {
+  width: auto;
+  max-width: 100%;
+  max-height: 56vh;
+  border-radius: 6px;
+  display: block;
+  background: #fff;
+}
+.share-actions { margin-top: 18px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.share-actions .btn { padding: 12px 22px; }
+.share-note { margin-top: 12px; font-size: 11px; color: var(--ink-3); }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translate(-50%, 20px);
+  z-index: 300;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 11px 20px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s var(--ease);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+}
+.toast.is-show { opacity: 1; transform: translate(-50%, 0); }
+
+.confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 95;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; gap: 26px; padding-top: 34px; }
+  .hero-art { min-height: 400px; order: 2; margin-top: 10px; }
+  .hero-copy { order: 1; }
+  .id-card { width: min(300px, 74vw); }
+  .sticker-a { left: 4%; }
+  .sticker-b { right: 2%; }
+  .how { grid-template-columns: 1fr; gap: 18px; }
+  .result-hero { grid-template-columns: 190px minmax(0, 1fr); }
+  .modal-sub {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: .02em;
+}
+
+.gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .panels { grid-template-columns: 1fr 1fr; }
+  .panel:last-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 720px) {
+  .topbar { padding: 12px 18px; }
+  .brand-sub { display: none; }
+  .stage { padding: 0 18px; }
+  .hero { padding: 26px 0 34px; }
+  .hero-art { min-height: 360px; }
+  .id-card { width: min(260px, 68vw); }
+  .sticker { font-size: 10px; padding: 6px 10px; }
+  .sticker-a, .sticker-b { display: none; }
+  .id-card { width: min(246px, 66vw); }
+  .marquee { margin-left: -18px; margin-right: -18px; padding-left: 18px; padding-right: 18px; }
+  .how { padding: 34px 0 20px; }
+  .options { grid-template-columns: 1fr; gap: 12px; }
+  .option { padding: 18px 18px 20px; }
+  .q-foot { margin-top: 24px; }
+  .q-hint { display: none; }
+  .quiz-shell { padding-top: 22px; }
+  .result-shell { padding-top: 18px; }
+  .result-hero {
+    grid-template-columns: 116px minmax(0, 1fr);
+    gap: 16px;
+    padding: 18px;
+    border-radius: 18px;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .result-dog { border-radius: 14px; box-shadow: 3px 3px 0 rgba(30, 26, 22, .9); }
+  .code { font-size: 46px; }
+  .rarity { font-size: 9px; padding: 4px 8px; }
+  .result-name h2 { font-size: 26px; }
+  .result-name .en { display: none; }
+  .result-quote { font-size: 12.5px; margin-top: 8px; }
+  .result-title { font-size: 11px; margin-top: 7px; }
+  .result-desc { font-size: 14.5px; text-align: left; margin-top: 24px; }
+  .dims { grid-template-columns: 1fr; gap: 18px; padding: 20px; }
+  .panels { grid-template-columns: 1fr; }
+  .panel:last-child { grid-column: auto; }
+  .matches { grid-template-columns: 1fr; }
+  .result-actions .btn { flex: 1 1 calc(50% - 6px); padding: 13px 14px; font-size: 14px; }
+  .result-actions .spacer { display: none; }
+  .modal-sub {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: .02em;
+}
+
+.gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .g-detail-top { grid-template-columns: 110px 1fr; gap: 14px; }
+  .g-detail-code { font-size: 24px; }
+  .g-detail-name { font-size: 18px; }
+  .modal-panel { padding: 20px 18px 24px; border-radius: 18px; }
+  .modal-head h2 { font-size: 21px; }
+  .id-strip { font-size: 9px; gap: 8px; }
+  .id-strip .sep { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 打印：只留结果卡 */
+@media print {
+  .topbar, .screen-landing, .screen-quiz, .result-actions, .toast, .confetti, .grain, .bg-shape, .modal { display: none !important; }
+  body { background: #fff; }
+  .result-shell { max-width: none; padding: 0; }
+  .result-hero, .dims, .panel, .match { box-shadow: none; }
+}
+
+/* ---------- 补充：交互细节 ---------- */
+body.no-scroll { overflow: hidden; }
+
+#hero-dog { transition: opacity .28s ease, transform .28s ease; }
+
+.option { animation: optIn .42s var(--ease) backwards; }
+@keyframes optIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+.match-body { flex: 1; min-width: 0; }
+.match-label, .match-name, .match-why { display: block; }
+
+.g-card { display: block; width: 100%; }
+.g-detail-top > div { min-width: 0; }
+
+button:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* ==========================================================
+   隐藏犬格：图鉴里的 ??? 与专属结果页
+   ========================================================== */
+.hidden-gallery {
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 2px dashed rgba(30, 26, 22, .22);
+}
+.hidden-gallery-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.hidden-gallery-head span { font-size: 12px; font-weight: 900; letter-spacing: .06em; }
+.hidden-gallery-head em {
+  font-style: normal;
+  font-size: 9px;
+  font-weight: 800;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+.hidden-gallery-head small {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--ink-3);
+}
+.hidden-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: 24px;
+  align-items: center;
+}
+.hidden-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+.hidden-tease {
+  font-size: 12px;
+  line-height: 2;
+  color: var(--ink-3);
+  padding-left: 18px;
+  border-left: 2px solid rgba(30, 26, 22, .16);
+}
+.hidden-tease b { color: var(--ink); font-weight: 800; }
+.g-card-hidden {
+  border-style: dashed;
+  background: #EEE7D8;
+  box-shadow: none;
+}
+.g-card-hidden:hover { box-shadow: 2px 2px 0 rgba(30, 26, 22, .25); }
+.g-card-hidden .g-card-art {
+  background: repeating-linear-gradient(135deg, #E4DACA 0 10px, #DDD2C0 10px 20px);
+  border-style: dashed;
+  display: grid;
+  place-items: center;
+}
+.mystery-mark {
+  font-family: "Arial Black", "Helvetica Neue", sans-serif;
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 900;
+  color: rgba(30, 26, 22, .22);
+  line-height: 1;
+}
+.g-card-hidden.is-unlocked { border-color: var(--accent); }
+.g-card-hidden.is-unlocked .mystery-mark { color: var(--accent); opacity: .8; }
+
+/* 加密档案详情 */
+.mystery-detail {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+  padding: 6px 0 18px;
+}
+.mystery-art {
+  aspect-ratio: 1 / 1;
+  border: 2px dashed rgba(30, 26, 22, .4);
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(135deg, #E9E1D2 0 12px, #E1D7C5 12px 24px);
+}
+.mystery-art span {
+  font-family: "Arial Black", sans-serif;
+  font-size: 84px;
+  font-weight: 900;
+  color: rgba(30, 26, 22, .2);
+}
+.mystery-kicker {
+  font-size: 9px;
+  letter-spacing: .22em;
+  color: var(--accent);
+  font-weight: 800;
+}
+.mystery-copy h3 {
+  margin: 8px 0 10px;
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+.mystery-copy p { font-size: 12.5px; line-height: 1.8; color: var(--ink-2); }
+.mystery-hint {
+  margin-top: 14px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent);
+  color: var(--ink) !important;
+}
+.mystery-status {
+  margin-top: 16px;
+  font-size: 11px !important;
+  color: var(--ink-3) !important;
+}
+
+/* 隐藏结果页 */
+.hidden-hero {
+  position: relative;
+  padding: 24px 30px 28px;
+  background: #1B1713;
+  color: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+  box-shadow: 9px 9px 0 var(--ink);
+  overflow: hidden;
+  animation: heroPop .6s var(--ease) both;
+}
+.hidden-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 4px);
+  pointer-events: none;
+}
+.hidden-ribbon {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  background: var(--dog-accent, var(--accent));
+  color: var(--ink);
+  font-size: 9.5px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.hidden-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 26px;
+  align-items: center;
+  margin-top: 16px;
+}
+.hidden-dog {
+  background: #2C241D;
+  border-color: var(--dog-accent, var(--accent));
+  box-shadow: 4px 4px 0 var(--dog-accent, var(--accent));
+}
+.hidden-kicker {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: var(--dog-accent, var(--accent));
+}
+.hidden-breed {
+  margin-top: 6px;
+  font-size: clamp(34px, 5vw, 52px);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  line-height: 1.1;
+  color: var(--cream);
+  animation: glitch 4.5s infinite steps(1);
+}
+@keyframes glitch {
+  0%, 92%, 100% { transform: none; }
+  93% { transform: translateX(-2px); }
+  95% { transform: translateX(2px); }
+  97% { transform: translateX(-1px); }
+}
+.hidden-hero .en { color: rgba(245, 238, 224, .45); }
+.hidden-hero .result-title {
+  background: var(--dog-accent, var(--accent));
+  color: var(--ink);
+  transform: rotate(-1.5deg);
+}
+.hidden-hero .result-quote { color: rgba(245, 238, 224, .72); margin-top: 10px; }
+
+.hidden-meta {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(30, 26, 22, .14);
+}
+.hidden-meta > div { background: var(--paper); padding: 12px 16px; }
+.hidden-meta span {
+  display: block;
+  font-size: 8.5px;
+  letter-spacing: .14em;
+  color: var(--ink-3);
+  margin-bottom: 4px;
+}
+.hidden-meta b { font-size: 12.5px; font-weight: 800; }
+.hidden-note {
+  margin-top: 18px;
+  font-size: 11.5px;
+  line-height: 1.8;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .hidden-body { grid-template-columns: 1fr; }
+  .hidden-tease { display: none; }
+  .mystery-detail { grid-template-columns: 96px minmax(0, 1fr); gap: 14px; }
+  .mystery-copy h3 { font-size: 21px; }
+  .mystery-art span { font-size: 48px; }
+  .hidden-hero { padding: 18px; border-radius: 18px; box-shadow: 6px 6px 0 var(--ink); }
+  .hidden-hero-grid { grid-template-columns: 112px minmax(0, 1fr); gap: 14px; margin-top: 12px; }
+  .hidden-breed { font-size: 28px; }
+  .hidden-meta { grid-template-columns: 1fr; }
+  .hidden-meta > div { padding: 10px 14px; }
+  .result-breed { font-size: 40px; }
+  .result-topline { gap: 6px; }
+  .result-no { display: none; }
+  .trait-row { margin-top: 9px; }
+  .trait-chip { font-size: 10.5px; padding: 3px 7px; }
+  .option { padding: 14px 15px 16px; font-size: 14.5px; }
+  .option .opt-icon { font-size: 21px; }
+  .quiz-shell { padding-bottom: 6vh; }
+}
+
+/* ---------- 犬格印章（替代矢量狗插画） ---------- */
+.mark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--mark-accent, var(--accent-2));
+  overflow: hidden;
+}
+.mark-char {
+  position: relative;
+  z-index: 2;
+  font-family: "Songti SC", "STSong", "Noto Serif SC", "SimSun", serif;
+  font-weight: 900;
+  font-size: 2.1em;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--ink);
+  transform: translateY(-.03em);
+}
+.mark-paw {
+  position: absolute;
+  z-index: 1;
+  left: -10%;
+  top: -9%;
+  width: 54%;
+  height: auto;
+  color: rgba(36, 29, 24, .16);
+  transform: rotate(-18deg);
+}
+.mark-seal {
+  position: absolute;
+  z-index: 3;
+  right: 8%;
+  bottom: 7%;
+  font-size: .16em;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: rgba(36, 29, 24, .55);
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  padding: .32em .5em;
+  transform: rotate(-6deg);
+  white-space: nowrap;
+}
+.mark-hidden { background: #241E19; }
+.mark-hidden .mark-char { color: var(--mark-accent); }
+.mark-hidden .mark-paw { color: rgba(245, 238, 224, .12); }
+.mark-hidden .mark-seal { color: var(--mark-accent); }
+.g-card-art .mark-seal,
+.match-dog .mark-seal,
+.resume-dog .mark-seal { display: none; }
+
+@media (max-width: 720px) {
+  .result-dog .mark { font-size: 42px; }
+  .hidden-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+  .g-card-hidden .g-card-info { padding: 5px 1px 0; }
+  .g-card-hidden .g-card-name { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+<div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+
+<header class="topbar">
+  <button class="brand" id="brand-btn" type="button" aria-label="回到首页">
+    <span class="brand-mark">🐾</span>
+    <span class="brand-name">DOGE<span class="brand-dot">·</span>16</span>
+    <span class="brand-sub">犬格档案馆</span>
+  </button>
+  <div class="topbar-right">
+    <button class="ghost-btn" id="gallery-btn" type="button">
+      <span>图鉴</span><span class="count" id="gallery-count">0/19</span>
+    </button>
+  </div>
+</header>
+
+<main class="stage">
+
+  <!-- ============ 落地页 ============ -->
+  <section class="screen screen-landing is-active" id="screen-landing">
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span>汪星移民局 · 犬格研究中心 出品</p>
+        <h1 class="hero-title">
+          测测你<br>
+          是哪种<span class="title-mark">狗<svg class="title-scribble" viewBox="0 0 120 20" aria-hidden="true"><path d="M3 14C24 5 46 4 66 8c18 4 34 5 51-2" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>
+        </h1>
+        <p class="lede">20 道题，拆出你的犬格。<br>比你自己更懂你的，可能真是一条狗。</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" id="start-btn" type="button">
+            <span>开始测犬格</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          <span class="cta-meta">20 题 · 约 2 分钟<br>不用登录，测完就能领狗</span>
+        </div>
+        <button class="resume" id="resume-btn" type="button" hidden>
+          <span class="resume-dog" id="resume-dog"></span>
+          <span class="resume-text">上次你被鉴定为 <b id="resume-name">金毛</b><i id="resume-title">人间小太阳</i></span>
+          <span class="resume-arrow">查看 →</span>
+        </button>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="sticker sticker-a">16 种犬格</div>
+        <div class="sticker sticker-b">100% 靠谱<br><small>（大概）</small></div>
+        <div class="id-card" id="hero-card">
+          <div class="id-card-top">
+            <span>DOGE ID</span>
+            <span id="hero-no">NO.????</span>
+          </div>
+          <div class="id-card-art" id="hero-dog"></div>
+          <div class="id-card-bottom">
+            <div>
+              <div class="id-breed" id="hero-breed">金毛</div>
+              <div class="id-en" id="hero-en">Golden Retriever</div>
+            </div>
+            <div class="id-title-wrap">
+              <span class="id-title-label">犬格</span>
+              <div class="id-title" id="hero-title">人间小太阳</div>
+            </div>
+          </div>
+          <div class="barcode" aria-hidden="true"></div>
+        </div>
+        <div class="tape" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee-track"></div>
+    </div>
+
+    <div class="how">
+      <div class="how-item">
+        <span class="how-num">01</span>
+        <h3>答 20 道题</h3>
+        <p>没有标准答案，第一反应最准。每题四个选项，别想，选。</p>
+      </div>
+      <div class="how-item">
+        <span class="how-num">02</span>
+        <h3>领一只狗</h3>
+        <p>四种脾气交叉出 16 种犬格，总有一款像你。</p>
+      </div>
+      <div class="how-item">
+        <span class="how-num">03</span>
+        <h3>发出去丢人</h3>
+        <p>生成专属犬格卡，让朋友知道你是哪种狗。</p>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <p>本测试纯属娱乐，不构成任何犬类行为学、心理学或择偶建议。</p>
+      <p class="foot-small">DOGE·16 / 犬格档案馆 · 一个正经不起来的小项目</p>
+    </footer>
+  </section>
+
+  <!-- ============ 答题页 ============ -->
+  <section class="screen screen-quiz" id="screen-quiz">
+    <div class="quiz-shell">
+      <div class="quiz-top">
+        <button class="icon-btn" id="quit-btn" type="button" aria-label="退出测试">←</button>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0" id="progress">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="quiz-count"><b id="q-now">1</b><span>/20</span></div>
+      </div>
+
+      <div class="question-wrap" id="question-wrap">
+        <p class="q-meta"><span class="q-index" id="q-num">Q01</span> <span class="q-axis" id="q-axis">社交电量</span></p>
+        <h2 class="q-text" id="q-text" aria-live="polite">加载中…</h2>
+        <div class="options" id="options"></div>
+        <div class="q-foot">
+          <button class="text-btn" id="back-btn" type="button">← 上一题</button>
+          <span class="q-hint">键盘 <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> 也可以选</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 结果页 ============ -->
+  <section class="screen screen-result" id="screen-result">
+    <div class="result-shell" id="result-shell"></div>
+  </section>
+</main>
+
+<!-- ============ 图鉴弹层 ============ -->
+<div class="modal" id="gallery-modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close="gallery"></div>
+  <div class="modal-panel modal-gallery" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
+    <div class="modal-head">
+      <div>
+        <p class="modal-kicker">犬格档案馆</p>
+        <h2 id="gallery-title">16 只狗，16 种活法</h2>
+        <p class="modal-sub" id="gallery-sub">点开任意一只查看完整档案 · 另有 3 个加密犬格</p>
+      </div>
+      <button class="icon-btn close-btn" data-close="gallery" type="button" aria-label="关闭图鉴">✕</button>
+    </div>
+    <div class="gallery-view" id="gallery-view"></div>
+    <div class="gallery-detail" id="gallery-detail" hidden></div>
+  </div>
+</div>
+
+<!-- ============ 分享卡弹层 ============ -->
+<div class="modal" id="share-modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close="share"></div>
+  <div class="modal-panel modal-share" role="dialog" aria-modal="true" aria-labelledby="share-title">
+    <div class="modal-head">
+      <div>
+        <p class="modal-kicker">专属犬格卡</p>
+        <h2 id="share-title">拿去发朋友圈吧</h2>
+      </div>
+      <button class="icon-btn close-btn" data-close="share" type="button" aria-label="关闭分享卡">✕</button>
+    </div>
+    <div class="share-preview"><canvas id="share-canvas" width="1080" height="1350"></canvas></div>
+    <div class="share-actions">
+      <button class="btn btn-primary" id="download-btn" type="button">保存图片</button>
+      <button class="btn btn-ghost" id="copy-btn" type="button">复制文案</button>
+    </div>
+    <p class="share-note">长按图片也可以直接保存到相册。</p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+<noscript><p style="padding:24px;text-align:center">这个测试需要开启 JavaScript 才能知道你是什么狗。</p></noscript>
+
+<script>
+/* ==========================================================
+   DOGE·16 汪汪人格 —— 数据层
+   4 个形容词维度 × 20 道四选一 → 16 种犬格 + 3 个隐藏犬格
+   想换皮（猫 / 奶茶 / 打工人）只需要替换这份数据
+   ========================================================== */
+window.DOGE = (function () {
+  /* 维度不用字母，全部用形容词。
+     L / R 只是内部计分方向，不会出现在界面上。 */
+  const axes = [
+    {
+      key: 'social', name: '社交电量',
+      left: { label: '社牛', desc: '人群充电' },
+      right: { label: '冰山', desc: '独处回血' }
+    },
+    {
+      key: 'mind', name: '脑回路',
+      left: { label: '脑洞', desc: '脑补为王' },
+      right: { label: '务实', desc: '眼见为实' }
+    },
+    {
+      key: 'heart', name: '做决定',
+      left: { label: '感性', desc: '先讲感受' },
+      right: { label: '理性', desc: '先讲逻辑' }
+    },
+    {
+      key: 'pace', name: '生活节奏',
+      left: { label: '随性', desc: '走着瞧' },
+      right: { label: '计划', desc: '按表走' }
+    }
+  ];
+
+  /* 每题 4 个选项：两个偏左、两个偏右，权重 2 / 1 / 1 / 2。
+     选项按「强左 → 弱左 → 弱右 → 强右」排，读起来像四个真实反应。 */
+  const questions = [
+    /* ---------------- 社交电量 ---------------- */
+    {
+      axis: 'social', text: '周六早上醒来，发现今天没有任何安排，你会——',
+      options: [
+        { icon: '🎉', text: '立刻在群里喊人：出来玩！', side: 'L', w: 2 },
+        { icon: '☕', text: '看心情，有人叫就出去', side: 'L', w: 1 },
+        { icon: '🎧', text: '在家待着，但会跟朋友连麦', side: 'R', w: 1 },
+        { icon: '🛋️', text: '太好了，今天谁也别找我', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'social', text: '电梯里遇到不太熟的同事，你——',
+      options: [
+        { icon: '😄', text: '主动开话题，从天气聊到午饭', side: 'L', w: 2 },
+        { icon: '🙂', text: '点个头，等对方先开口', side: 'L', w: 1 },
+        { icon: '📱', text: '掏出手机，假装在回消息', side: 'R', w: 1 },
+        { icon: '🔢', text: '盯着楼层数字，假装在思考人生', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'social', text: '聚会进行到第三个小时，你的电量——',
+      options: [
+        { icon: '🎤', text: '刚开始热起来，麦克风给我', side: 'L', w: 2 },
+        { icon: '💃', text: '还能再跳两首', side: 'L', w: 1 },
+        { icon: '🪑', text: '找个角落坐下，看别人玩', side: 'R', w: 1 },
+        { icon: '🚪', text: '已经在心里算几点能回家', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'social', text: '你的聊天记录里，语音条通常——',
+      options: [
+        { icon: '🎙️', text: '60 秒起步，情绪饱满', side: 'L', w: 2 },
+        { icon: '🗣️', text: '十几秒，把事说清楚', side: 'L', w: 1 },
+        { icon: '⌨️', text: '打字，但会疯狂发表情包', side: 'R', w: 1 },
+        { icon: '🤐', text: '打了删、删了打，最后回个「嗯」', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'social', text: '搬进新小区第一周，你——',
+      options: [
+        { icon: '👋', text: '已经和保安、快递、遛狗的都混熟了', side: 'L', w: 2 },
+        { icon: '🏪', text: '知道哪家便利店好吃，但没认识几个人', side: 'L', w: 1 },
+        { icon: '🚪', text: '出门碰见会点头，但不聊', side: 'R', w: 1 },
+        { icon: '🕯️', text: '邻居怀疑这户根本没人住', side: 'R', w: 2 }
+      ]
+    },
+
+    /* ---------------- 脑回路 ---------------- */
+    {
+      axis: 'mind', text: '抬头看见一朵形状奇怪的云，你第一反应是——',
+      options: [
+        { icon: '🦆', text: '拍下来发群里：这不像一只烤鸭吗', side: 'L', w: 2 },
+        { icon: '🌤️', text: '想拍，但最后只是看了会儿', side: 'L', w: 1 },
+        { icon: '🧺', text: '哦，天气不错', side: 'R', w: 1 },
+        { icon: '🌧️', text: '要下雨了，衣服还晒在外面', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'mind', text: '朋友说「我最近有点累」，你——',
+      options: [
+        { icon: '🎬', text: '脑内已经补完八十集职场连续剧', side: 'L', w: 2 },
+        { icon: '🤔', text: '猜是不是最近项目太赶', side: 'L', w: 1 },
+        { icon: '🩺', text: '先问：具体哪儿不舒服？睡够了吗？', side: 'R', w: 1 },
+        { icon: '📋', text: '直接给三个解决方案', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'mind', text: '看一部新电影，你更容易被什么带走——',
+      options: [
+        { icon: '🌀', text: '镜头背后的隐喻，和没明说的结局', side: 'L', w: 2 },
+        { icon: '💭', text: '会想如果是自己会怎么选', side: 'L', w: 1 },
+        { icon: '🔍', text: '挑逻辑 bug，但尽量不出戏', side: 'R', w: 1 },
+        { icon: '📐', text: '细节真不真实、逻辑圆不圆', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'mind', text: '组装一个新买的柜子，你——',
+      options: [
+        { icon: '🧩', text: '先凭感觉搭，装错了再拆', side: 'L', w: 2 },
+        { icon: '🛠️', text: '大概看下图纸，边装边改', side: 'L', w: 1 },
+        { icon: '🔧', text: '先看说明书，螺丝按顺序排好', side: 'R', w: 1 },
+        { icon: '📏', text: '量好尺寸再动手，争取一次装对', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'mind', text: '提到「五年后」，你脑子里——',
+      options: [
+        { icon: '🌅', text: '有一张模糊但让人兴奋的蓝图', side: 'L', w: 2 },
+        { icon: '🌱', text: '想去做一件还没想清楚的事', side: 'L', w: 1 },
+        { icon: '🧾', text: '先想到下个月房租和体检报告', side: 'R', w: 1 },
+        { icon: '🗓️', text: '有具体的存款、城市和职业计划', side: 'R', w: 2 }
+      ]
+    },
+
+    /* ---------------- 做决定 ---------------- */
+    {
+      axis: 'heart', text: '朋友哭着说被老板骂了，你开口第一句——',
+      options: [
+        { icon: '🧋', text: '「他凭什么啊！走，先喝奶茶。」', side: 'L', w: 2 },
+        { icon: '🫂', text: '先抱一下，等 ta 哭完', side: 'L', w: 1 },
+        { icon: '🗣️', text: '先听，再问要不要建议', side: 'R', w: 1 },
+        { icon: '📊', text: '「你有没有想过，问题出在哪一步？」', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'heart', text: '团队讨论卡住时，你最常说——',
+      options: [
+        { icon: '💬', text: '「大家现在感觉怎么样？」', side: 'L', w: 2 },
+        { icon: '🌡️', text: '「先别急，说说各自卡在哪。」', side: 'L', w: 1 },
+        { icon: '📈', text: '「要不先对齐一下目标？」', side: 'R', w: 1 },
+        { icon: '📊', text: '「数据呢？先看数据。」', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'heart', text: '看电影时，你的眼泪——',
+      options: [
+        { icon: '😭', text: '片头音乐一响就绷不住了', side: 'L', w: 2 },
+        { icon: '🥲', text: '某个眼神够我缓三天', side: 'L', w: 1 },
+        { icon: '🎞️', text: '很少掉，但会记住那种感觉', side: 'R', w: 1 },
+        { icon: '🔬', text: '会研究导演是怎么拍的', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'heart', text: '需要拒绝别人的时候，你——',
+      options: [
+        { icon: '🙈', text: '纠结半天，最后编个温柔借口', side: 'L', w: 2 },
+        { icon: '😣', text: '先答应，回家再后悔', side: 'L', w: 1 },
+        { icon: '💬', text: '说清楚原因，尽量不伤人', side: 'R', w: 1 },
+        { icon: '✋', text: '直接说不行，理由讲清楚', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'heart', text: '判断一件事对不对，你更信——',
+      options: [
+        { icon: '🫶', text: '当事人的感受和处境', side: 'L', w: 2 },
+        { icon: '🌈', text: '有没有人因此受伤', side: 'L', w: 1 },
+        { icon: '⚖️', text: '规则是不是对所有人都公平', side: 'R', w: 1 },
+        { icon: '🧪', text: '逻辑、证据、能不能复现', side: 'R', w: 2 }
+      ]
+    },
+
+    /* ---------------- 生活节奏 ---------------- */
+    {
+      axis: 'pace', text: '出门旅行前，你的状态是——',
+      options: [
+        { icon: '🎒', text: '机票订了，剩下的到了再说', side: 'L', w: 2 },
+        { icon: '🗺️', text: '存几个想去的地方，不做表', side: 'L', w: 1 },
+        { icon: '🏨', text: '机酒订好，列个大概清单', side: 'R', w: 1 },
+        { icon: '📋', text: '攻略精确到分钟，Excel 三张表', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'pace', text: '你的桌面和相册——',
+      options: [
+        { icon: '🌪️', text: '一片混沌，但我知道东西大概在哪', side: 'L', w: 2 },
+        { icon: '🗃️', text: '偶尔整理，整理完又乱', side: 'L', w: 1 },
+        { icon: '📁', text: '按项目分文件夹，命名还算规范', side: 'R', w: 1 },
+        { icon: '🗂️', text: '分类归档，命名规范', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'pace', text: 'deadline 前一周，你——',
+      options: [
+        { icon: '✨', text: '灵感刚刚降临', side: 'L', w: 2 },
+        { icon: '🔥', text: '开始有紧迫感，先搭个框架', side: 'L', w: 1 },
+        { icon: '🧱', text: '主体差不多了，留时间改', side: 'R', w: 1 },
+        { icon: '✅', text: '初稿已经改到第三版', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'pace', text: '朋友临时改计划，你——',
+      options: [
+        { icon: '🎲', text: '太好了，我本来也没想好', side: 'L', w: 2 },
+        { icon: '🙂', text: '行啊，那就换个地方', side: 'L', w: 1 },
+        { icon: '😐', text: '有点烦，但能调整', side: 'R', w: 1 },
+        { icon: '📅', text: '有点烦，我原本的安排被打乱了', side: 'R', w: 2 }
+      ]
+    },
+    {
+      axis: 'pace', text: '你更享受哪种感觉——',
+      options: [
+        { icon: '🎁', text: '计划外偶遇的惊喜', side: 'L', w: 2 },
+        { icon: '🌊', text: '走到哪算哪的松弛', side: 'L', w: 1 },
+        { icon: '🧭', text: '大致方向对、细节可调的掌控', side: 'R', w: 1 },
+        { icon: '🧱', text: '事情按计划完成的踏实', side: 'R', w: 2 }
+      ]
+    }
+  ];
+
+  /* sig 是内部四维组合，只用来匹配犬格，不展示给用户。
+     顺序：社交 / 脑回路 / 做决定 / 节奏 */
+  const dogs = [
+    {
+      id: 'golden', sig: 'LLLL', breed: '金毛', en: 'Golden Retriever', title: '人间小太阳',
+      quote: '走啊！现在就出发！现在还早啊！',
+      desc: '你对全世界都保持一种没被伤害过的热情，见谁都像失散多年的亲人。计划永远在变，但每一秒都真心实意。',
+      tags: ['自来熟', '三分钟热度', '情绪稳定器'],
+      good: ['情绪价值批发商，专治不开心', '能把陌生人聊成老朋友', '永远相信下一站更好玩'],
+      bad: ['计划表活不过三天', '答应的事容易忘', '热情来得快去得也快'],
+      like: '别在我兴头上泼冷水，也别让我一个人待太久。',
+      best: 'shiba', bestWhy: '你负责热闹，ta 负责接住你的深夜 emo。',
+      clash: 'akita', clashWhy: '你想走就走，ta 的安排已经排到下个月。',
+      rarity: 13.1, accent: '#F7C97E',
+    },
+    {
+      id: 'samoyed', sig: 'LLLR', breed: '萨摩耶', en: 'Samoyed', title: '微笑居委会主任',
+      quote: '大家开心，我就开心。',
+      desc: '天生的气氛组长，能同时照顾八个人的情绪，唯独忘了自己也想被照顾。笑是职业素养，操心是本能。',
+      tags: ['端水大师', '天生领袖', '讨好型微笑'],
+      good: ['一眼看穿谁不开心', '能把散沙拧成一股绳', '说话让人如沐春风'],
+      bad: ['太在意别人的评价', '累到崩溃还说没事', '控制欲包装成关心'],
+      like: '别在我的局上冷场，更别让我觉得自己不重要。',
+      best: 'shiba', bestWhy: '你把 ta 从壳里哄出来，ta 把真心全给你。',
+      clash: 'bullterrier', clashWhy: '你递过去八杯热水，ta 说：不用。',
+      rarity: 5.9, accent: '#BFDCF6',
+    },
+    {
+      id: 'bordercollie', sig: 'RLLR', breed: '边牧', en: 'Border Collie', title: '狗界哲学家',
+      quote: '我不是不合群，我是在观察。',
+      desc: '你能从一句「随便」里读出三层意思，然后失眠到三点。看起来温顺，其实脑子里在给全世界做心理分析。',
+      tags: ['读空气', '想太多', '精神洁癖'],
+      good: ['洞察力惊人，谎言在你面前自动失效', '共情但不滥情', '做事有长期主义'],
+      bad: ['内耗冠军', '标准高到没人达标', '把帮助别人当成义务'],
+      like: '别骗我，我早就看出来了，只是没说。',
+      best: 'golden', bestWhy: 'ta 的没心没肺，刚好治你的过度思考。',
+      clash: 'tianyuan', clashWhy: '你还在分析，ta 已经把事干完了。',
+      rarity: 3.0, accent: '#C9CFF7',
+    },
+    {
+      id: 'shiba', sig: 'RLLL', breed: '柴犬', en: 'Shiba Inu', title: '倔强小诗人',
+      quote: '我可以在，但我不想。',
+      desc: '表面配合，内心有整套不可动摇的原则。别人以为你高冷，其实你只是把热情留给了值得的人和事。',
+      tags: ['外冷内热', '有原则', 'Doge 本狗'],
+      good: ['真诚，从不敷衍', '审美在线', '对在乎的人极度忠诚'],
+      bad: ['倔起来十头牛拉不回', '不想解释，直接消失', 'emo 起来自己都怕'],
+      like: '别逼我营业，也别把我的沉默当成好欺负。',
+      best: 'samoyed', bestWhy: 'ta 会一直敲门，直到你愿意开。',
+      clash: 'gsd', clashWhy: 'ta 要流程，你要自由。',
+      rarity: 6.8, accent: '#F3B183',
+    },
+    {
+      id: 'rottweiler', sig: 'LLRR', breed: '罗威纳', en: 'Rottweiler', title: '霸道项目总管',
+      quote: '所以，解决方案呢？',
+      desc: '你天生自带项目经理气场，连点外卖都要优化路径。不是爱控制，是实在看不下去事情烂在那里。',
+      tags: ['目标感', '效率狂', '强势'],
+      good: ['扛事，天塌下来先顶住', '决策快，不内耗', '能把不可能拆成待办'],
+      bad: ['说话像下指令', '对慢的人零耐心', '把休息当成浪费'],
+      like: '别跟我绕圈子，也别在我做事的时候拖后腿。',
+      best: 'pug', bestWhy: '你负责推进，ta 负责想出你想不到的那条路。',
+      clash: 'corgi', clashWhy: '你要效率，ta 要每个人都舒服。',
+      rarity: 2.6, accent: '#E8A08D',
+    },
+    {
+      id: 'husky', sig: 'LLRL', breed: '哈士奇', en: 'Siberian Husky', title: '拆家艺术家',
+      quote: '规则？谁定的？',
+      desc: '你的大脑是永动机，专门生产「要不试试」和「凭什么」。别人拆家，你拆的是常识。',
+      tags: ['脑洞', '反骨', '嘴强王者'],
+      good: ['点子多到用不完', '辩论基本没输过', '越乱越兴奋'],
+      bad: ['抬杠上瘾', '三分钟热度', '承诺随口就来'],
+      like: '别拿「一直都是这样」堵我，我会当场拆给你看。',
+      best: 'doberman', bestWhy: '你负责发疯，ta 负责把你拽回可行的那条线。',
+      clash: 'labrador', clashWhy: 'ta 只想过安稳日子，而你刚拆了沙发。',
+      rarity: 4.2, accent: '#BBD6EA',
+    },
+    {
+      id: 'doberman', sig: 'RLRR', breed: '杜宾', en: 'Doberman', title: '冷面军师',
+      quote: '我早说过了。',
+      desc: '你话少，但每句都在点子上。社交电量有限，全用来观察和布局，剩下的时间请勿打扰。',
+      tags: ['战略脑', '低电量', '高标准'],
+      good: ['看得远，能提前三步落子', '极度独立', '一出手就命中要害'],
+      bad: ['看起来冷漠', '不屑解释', '对人有隐形的高要求'],
+      like: '别浪费我的时间，也别试图用情绪说服我。',
+      best: 'husky', bestWhy: 'ta 的疯点子，刚好补上你的思维盲区。',
+      clash: 'bichon', clashWhy: '你在规划五年，ta 在问今晚去哪。',
+      rarity: 3.4, accent: '#CFC2DC',
+    },
+    {
+      id: 'pug', sig: 'RLRL', breed: '巴哥', en: 'Pug', title: '躺平学者',
+      quote: '有意思，但我先躺会儿。',
+      desc: '你能为宇宙的尽头兴奋到半夜，却懒得起身倒杯水。不是没想法，是想法太多，身体跟不上。',
+      tags: ['懒', '好奇', '佛系'],
+      good: ['想得深，能看到别人看不到的角度', '不随大流', '情绪稳定到离谱'],
+      bad: ['拖延症晚期', '懒得解释', '行动力约等于零'],
+      like: '别催我，我脑子里已经在做了。',
+      best: 'rottweiler', bestWhy: 'ta 把事推着走，你负责在关键时刻说「其实还有种办法」。',
+      clash: 'corgi', clashWhy: 'ta 张罗了一桌人，你只想回屋躺着。',
+      rarity: 4.6, accent: '#E8D2AE',
+    },
+    {
+      id: 'gsd', sig: 'LRRR', breed: '德牧', en: 'German Shepherd', title: '纪律委员',
+      quote: '按流程来。',
+      desc: '你是那种会主动收拾烂摊子、顺手把所有人进度都盯一遍的人。世界需要你，但世界也有点怕你。',
+      tags: ['靠谱', '规则感', '操心命'],
+      good: ['执行力拉满', '说到做到', '危急时刻最稳的那个'],
+      bad: ['死板，不太能接受例外', '爱说教', '看不惯一切「随便」'],
+      like: '别临时改规则，也别把我的靠谱当成理所当然。',
+      best: 'labrador', bestWhy: '你定规矩，ta 把规矩过成温柔的日子。',
+      clash: 'golden', clashWhy: '你刚排好班，ta 说走就走去追日落了。',
+      rarity: 6.3, accent: '#D9DCA8',
+    },
+    {
+      id: 'corgi', sig: 'LRLR', breed: '柯基', en: 'Corgi', title: '快乐小管家',
+      quote: '人都到齐了吗？',
+      desc: '你是群聊里的气氛发动机，也是记得每个人生日的那个。腿不长，但操的心比谁都多。',
+      tags: ['团宠', '张罗', '心软'],
+      good: ['会照顾人，细节全记得', '人缘好到离谱', '把普通日子过出仪式感'],
+      bad: ['太在乎热闹，怕冷场', '容易委屈自己', '八卦雷达过于灵敏'],
+      like: '别让我一个人张罗，也别把我排除在外。',
+      best: 'labrador', bestWhy: '两个操心的人，终于可以互相照顾。',
+      clash: 'pug', clashWhy: '你热了一桌菜，ta 在房间里研究宇宙。',
+      rarity: 8.6, accent: '#F8CB8A',
+    },
+    {
+      id: 'akita', sig: 'RRRR', breed: '秋田', en: 'Akita', title: '沉默的守护者',
+      quote: '答应的事，我会做到。',
+      desc: '你不太说漂亮话，但你说过的事都会兑现。忠诚不是口号，是你每天准时出现。',
+      tags: ['忠诚', '固执', '慢热'],
+      good: ['极度可靠，托付的事不用再问', '有底线', '不搞花活'],
+      bad: ['认死理', '不善表达，容易让人误会', '变化一来就焦虑'],
+      like: '别试探我的底线，也别逼我说好听的话。',
+      best: 'bichon', bestWhy: 'ta 把日子过成节日，你把节日守成日常。',
+      clash: 'golden', clashWhy: 'ta 的临时起意，对你来说像一场地震。',
+      rarity: 7.5, accent: '#EBCDA8',
+    },
+    {
+      id: 'labrador', sig: 'RRLR', breed: '拉布拉多', en: 'Labrador', title: '老好人',
+      quote: '都行，你们定。',
+      desc: '你温柔得像一块永远不会硌人的地毯，所有人都愿意踩一踩。你记得每个人的口味，却没几个人记得你的。',
+      tags: ['好脾气', '付出型', '不会拒绝'],
+      good: ['体贴入微，能接住所有人的情绪', '有耐心', '把小事做得妥帖'],
+      bad: ['不会拒绝，累死自己', '憋着不说', '容易被当成理所当然'],
+      like: '别利用我的好脾气，也别问我「你怎么了」然后不听。',
+      best: 'gsd', bestWhy: 'ta 替你把「不行」说出口，你替 ta 把人心捂热。',
+      clash: 'husky', clashWhy: 'ta 一句玩笑，你能在心里过三天。',
+      rarity: 10.6, accent: '#F2D79B',
+    },
+    {
+      id: 'tianyuan', sig: 'LRRL', breed: '中华田园犬', en: 'Chinese Rural Dog', title: '村口扛把子',
+      quote: '这条街，我熟。',
+      desc: '你是在巷子里长大的那种聪明：没上过学，但什么都会。谁家有事你第一个到，从不讲大道理，先把事办了。',
+      tags: ['行动派', '讲义气', '皮实'],
+      good: ['反应快，现场永远不冷', '敢出头，也扛得住事', '接地气，跟谁都能聊两句'],
+      bad: ['冲动，后果以后再说', '坐不住，闲下来就拆家', '嘴比脑子快半拍'],
+      like: '别让我干坐着，也别跟我绕那些虚的。',
+      best: 'pomeranian', bestWhy: '你负责冲锋，ta 负责把日子过好看。',
+      clash: 'bordercollie', clashWhy: '你嫌 ta 想太多，ta 嫌你太吵。',
+      rarity: 4.4, accent: '#F6B3A4',
+    },
+    {
+      id: 'bichon', sig: 'LRLL', breed: '比熊', en: 'Bichon Frise', title: '氛围组组长',
+      quote: '看我看我！',
+      desc: '你走到哪儿哪儿就亮，快乐是你的出厂设置。被喜欢是刚需，冷场是你的天敌。',
+      tags: ['自来熟', '戏多', '粘人'],
+      good: ['感染力强，能把丧气一扫而空', '会来事', '情绪外放，不憋着'],
+      bad: ['怕被忽视', '三分钟热度', '容易上头'],
+      like: '别晾着我，别让我觉得自己不好玩。',
+      best: 'akita', bestWhy: '你闹你的，ta 在旁边稳稳地接着。',
+      clash: 'doberman', clashWhy: '你要即时反馈，ta 在思考人生。',
+      rarity: 9.4, accent: '#F9CFDD',
+    },
+    {
+      id: 'bullterrier', sig: 'RRRL', breed: '牛头梗', en: 'Bull Terrier', title: '面瘫狠人',
+      quote: '能动手就别吵吵。',
+      desc: '你话不多，表情也不多，但真出事了，大家第一个回头找你。冷静是你的保护色。',
+      tags: ['面瘫', '手巧', '冷静'],
+      good: ['抗压能力顶级', '动手能力极强', '不情绪化，能解决问题'],
+      bad: ['沟通太少', '看起来不在乎', '懒得解释'],
+      like: '别跟我演情绪戏，有事说事。',
+      best: 'corgi', bestWhy: 'ta 把关系焐热，你负责在关键时候顶上。',
+      clash: 'samoyed', clashWhy: 'ta 需要回应，你只回了一个「嗯」。',
+      rarity: 3.9, accent: '#D3DAE1',
+    },
+    {
+      id: 'pomeranian', sig: 'RRLL', breed: '博美', en: 'Pomeranian', title: '精致小作精',
+      quote: '我这样，挺好啊。',
+      desc: '你对美有执念，对自由有执念，对「别人怎么看」嘴上说不在乎，其实偷偷在乎。作，但作得可爱。',
+      tags: ['审美在线', '敏感', '我行我素'],
+      good: ['有品位，随手一拍就好看', '共情力强', '活得真实'],
+      bad: ['玻璃心', '爱生闷气', '说走就走'],
+      like: '别管我穿什么、怎么活，也别敷衍我的感受。',
+      best: 'tianyuan', bestWhy: 'ta 的莽撞刚好撞碎你的小情绪。',
+      clash: 'rottweiler', clashWhy: 'ta 要结果，你要被理解。',
+      rarity: 5.7, accent: '#F7C1C9',
+    }
+  ];
+
+  /* ---------------- 两个隐藏犬格 ----------------
+     不在 16 宫格里按答案匹配，只能通过行为触发。 */
+  const hiddenDogs = [
+    {
+      id: 'schrodinger', hidden: true, breed: '薛定谔的狗', en: "Schrödinger's Dog",
+      title: '量子叠加态',
+      quote: '你可能是一只狗，也可能不是。',
+      desc: '20 道题，你用了不到 15 秒。这说明你同时是所有狗，也不是任何一只狗。箱子还没打开，先别急着摇尾巴。',
+      tags: ['手速惊人', '拒绝阅读', '存在主义'],
+      good: ['做决定快得离谱', '不被题目绑架', '量子态抗压'],
+      bad: ['容易点错', '没看清就选了', '事后想不起来选了什么'],
+      like: '别让我读长题，也别问我为什么这么快。',
+      rarity: 0.01, accent: '#8FE0BE',
+      condition: '20 道题在 15 秒内答完',
+      hint: '据说，快过某个瞬间的人，会遇见一只既存在又不存在的狗。',
+    },
+    {
+      id: 'boomerang', hidden: true, breed: '回旋镖犬', en: 'Boomerang Dog',
+      title: '反复横跳冠军',
+      quote: '等一下，我上一题好像选错了。',
+      desc: '你每做一个决定，都要飞回去和上一个自己商量。别人一条路走到黑，你是一条路走出一个圆。',
+      tags: ['选择困难', '复盘上瘾', '反复确认'],
+      good: ['想得周到', '很少真的选错', '对细节有执念'],
+      bad: ['一个决定改八遍', '原地打转', '把时间都花在回头看'],
+      like: '别催我，我还在确认上一题。',
+      rarity: 0.02, accent: '#FFC98B',
+      condition: '答题过程中回头 3 次以上',
+      hint: '总回头看的人，会遇见一只会飞的狗。',
+    },
+    {
+      id: 'juan', hidden: true, breed: '臭卷狗', en: 'The Grind Dog',
+      title: '卷王本王',
+      quote: '再做一遍，这次一定能测出我想要的结果。',
+      desc: '你已经把同一套题做了三次以上。别人测的是性格，你测的是排名。狗生不是考试，但你已经把答题卡涂满了。',
+      tags: ['反复刷题', '不服输', '自我怀疑'],
+      good: ['执行力惊人', '不达目的不罢休', '数据意识极强'],
+      bad: ['把娱乐当 KPI', '越测越焦虑', '总觉得下一只狗更好'],
+      like: '别告诉我这只是个测试，我知道它有标准答案。',
+      rarity: 0.03, accent: '#D9C7FF',
+      condition: '重复完成测试 3 次以上',
+      hint: '据说，把同一套题做上三遍的人，会遇见一只停不下来的狗。',
+    }
+  ];
+
+  const byId = {};
+  dogs.concat(hiddenDogs).forEach(function (d) { byId[d.id] = d; });
+
+  const bySig = {};
+  dogs.forEach(function (d) { bySig[d.sig] = d; });
+
+  return {
+    axes: axes,
+    questions: questions,
+    dogs: dogs,
+    hiddenDogs: hiddenDogs,
+    allDogs: dogs.concat(hiddenDogs),
+    byId: byId,
+    bySig: bySig
+  };
+})();
+
+</script>
+<script>
+/* ==========================================================
+   DOGE·16 —— 汪汪人格
+   4 个形容词维度 / 20 道四选一 / 16 种犬格 + 3 个隐藏犬格
+   ========================================================== */
+(function () {
+  'use strict';
+
+  var D = window.DOGE;
+  var $ = function (sel, el) { return (el || document).querySelector(sel); };
+  var $$ = function (sel, el) { return Array.prototype.slice.call((el || document).querySelectorAll(sel)); };
+
+  var TOTAL = D.questions.length;
+  var TOTAL_DOGS = D.allDogs.length;
+  var LS_KEY = 'doge16.result.v2';
+  var INK = '#241D18';
+  var PAPER = '#FFFCF5';
+
+  var state = {
+    screen: 'landing',
+    index: 0,
+    answers: new Array(TOTAL).fill(null),
+    result: null,
+    history: [],
+    hiddenHistory: [],
+    locked: false,
+    startedAt: 0,
+    lastClickAt: 0,
+    backCount: 0,
+    plays: 0,
+    ts: 0
+  };
+
+  /* ------------------------------------------------------------------
+     颜色与杂项
+     ------------------------------------------------------------------ */
+  function hex2rgb(h) {
+    h = h.replace('#', '');
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    return { r: parseInt(h.slice(0, 2), 16), g: parseInt(h.slice(2, 4), 16), b: parseInt(h.slice(4, 6), 16) };
+  }
+  function rgb2hex(r, g, b) {
+    var f = function (n) { n = Math.max(0, Math.min(255, Math.round(n))); return ('0' + n.toString(16)).slice(-2); };
+    return '#' + f(r) + f(g) + f(b);
+  }
+  function mix(a, b, t) {
+    var x = hex2rgb(a), y = hex2rgb(b);
+    return rgb2hex(x.r + (y.r - x.r) * t, x.g + (y.g - x.g) * t, x.b + (y.b - x.b) * t);
+  }
+  function hash(str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return h >>> 0;
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+  /* ------------------------------------------------------------------
+     犬格印章：每只狗取品种首字 + 爪印，替换掉原来的矢量狗插画
+     ------------------------------------------------------------------ */
+  function dogMark(dog) {
+    var hidden = !!dog.hidden;
+    var ch = hidden ? '?' : dog.breed.charAt(0);
+    return '<div class="mark' + (hidden ? ' mark-hidden' : '') + '" style="--mark-accent:' + dog.accent + '" aria-hidden="true">'
+      + '<svg class="mark-paw" viewBox="0 0 100 100"><g fill="currentColor">'
+      + '<ellipse cx="50" cy="67" rx="23" ry="18"/>'
+      + '<ellipse cx="25" cy="43" rx="10" ry="13" transform="rotate(-18 25 43)"/>'
+      + '<ellipse cx="43" cy="30" rx="10" ry="14" transform="rotate(-4 43 30)"/>'
+      + '<ellipse cx="63" cy="31" rx="10" ry="13" transform="rotate(9 63 31)"/>'
+      + '<ellipse cx="79" cy="48" rx="9" ry="12" transform="rotate(24 79 48)"/>'
+      + '</g></svg>'
+      + '<span class="mark-char">' + ch + '</span>'
+      + '<span class="mark-seal">' + (hidden ? 'CLASSIFIED' : '犬格档案') + '</span>'
+      + '</div>';
+  }
+
+  /* ------------------------------------------------------------------
+     屏幕
+     ------------------------------------------------------------------ */
+  function show(name) {
+    state.screen = name;
+    $$('.screen').forEach(function (s) {
+      s.classList.toggle('is-active', s.id === 'screen-' + name);
+    });
+    closeModal('gallery');
+    closeModal('share');
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  /* ------------------------------------------------------------------
+     落地页
+     ------------------------------------------------------------------ */
+  var heroIdx = 0;
+  var heroTimer = null;
+
+  function paintHero(dog, animate) {
+    var host = $('#hero-dog');
+    if (animate) {
+      host.style.opacity = '0';
+      host.style.transform = 'scale(.96)';
+    }
+    var render = function () {
+      host.innerHTML = dogMark(dog);
+      $('#hero-breed').textContent = dog.breed;
+      $('#hero-en').textContent = dog.en;
+      $('#hero-title').textContent = dog.title;
+      $('#hero-no').textContent = 'NO.' + String(1000 + (hash(dog.id) % 9000));
+      $('.id-card-art').style.background = dog.accent;
+      host.style.opacity = '1';
+      host.style.transform = 'none';
+    };
+    if (animate) setTimeout(render, 160); else render();
+  }
+
+  function startHeroLoop() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (heroTimer) clearInterval(heroTimer);
+    heroTimer = setInterval(function () {
+      heroIdx = (heroIdx + 1 + Math.floor(Math.random() * 3)) % D.dogs.length;
+      paintHero(D.dogs[heroIdx], true);
+    }, 2600);
+  }
+
+  function paintMarquee() {
+    var items = D.dogs.map(function (d) {
+      return '<span class="marquee-item"><span class="paw">🐾</span>' + esc(d.breed)
+        + '<span class="m-title">' + esc(d.title) + '</span></span>';
+    }).join('');
+    $('#marquee-track').innerHTML = items + items;
+  }
+
+  function loadSaved() {
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(LS_KEY) || 'null'); } catch (e) { saved = null; }
+    if (!saved || !saved.id || !D.byId[saved.id]) return;
+    if (!Array.isArray(saved.answers) || saved.answers.length !== TOTAL) return;
+    state.answers = saved.answers.slice();
+    state.plays = saved.plays || 1;
+    state.history = Array.isArray(saved.history) ? saved.history.filter(function (id) {
+      return D.byId[id] && !D.byId[id].hidden;
+    }) : [];
+    state.hiddenHistory = Array.isArray(saved.hiddenHistory) ? saved.hiddenHistory.filter(function (id) {
+      return D.byId[id] && D.byId[id].hidden;
+    }) : [];
+    var dog = D.byId[saved.id];
+    var scored = scoreAnswers(state.answers);
+    if (!dog || (!dog.hidden && dog.sig !== scored.resultSig)) return;
+    state.result = assembleResult(dog, scored, saved.ts || Date.now(), saved.elapsed || 0, saved.backs || 0);
+    state.ts = state.result.ts;
+    paintResume();
+  }
+
+  function paintResume() {
+    if (!state.result) return;
+    var dog = state.result.dog;
+    $('#resume-dog').innerHTML = dogMark(dog);
+    if (state.result.hidden) {
+      $('#resume-name').textContent = '隐藏犬格';
+      $('#resume-title').textContent = '???';
+    } else {
+      $('#resume-name').textContent = dog.breed;
+      $('#resume-title').textContent = dog.title;
+    }
+    $('#resume-btn').hidden = false;
+  }
+
+  function collectedCount() {
+    return state.history.length + state.hiddenHistory.length;
+  }
+
+  function paintGalleryCount() {
+    $('#gallery-count').textContent = collectedCount() + '/' + TOTAL_DOGS;
+  }
+
+  /* ------------------------------------------------------------------
+     答题
+     ------------------------------------------------------------------ */
+  function startTest() {
+    state.answers = new Array(TOTAL).fill(null);
+    state.index = 0;
+    state.locked = false;
+    state.backCount = 0;
+    state.startedAt = performance.now();
+    state.lastClickAt = 0;
+    $('#progress').setAttribute('aria-valuenow', '0');
+    $('#progress-fill').style.width = '0%';
+    show('quiz');
+    renderQuestion();
+  }
+
+  function axisOf(q) {
+    for (var i = 0; i < D.axes.length; i++) if (D.axes[i].key === q.axis) return D.axes[i];
+    return D.axes[0];
+  }
+
+  function renderQuestion(dir) {
+    var q = D.questions[state.index];
+    var ax = axisOf(q);
+
+    $('#q-num').textContent = 'Q' + pad2(state.index + 1);
+    $('#q-axis').textContent = ax.name;
+    $('#q-text').textContent = q.text;
+    $('#q-now').textContent = state.index + 1;
+    $('#progress-fill').style.width = ((state.index + 1) / TOTAL * 100) + '%';
+    $('#progress').setAttribute('aria-valuenow', String(state.index));
+    $('#back-btn').disabled = state.index === 0;
+
+    var picked = state.answers[state.index];
+    var html = '';
+    q.options.forEach(function (o, i) {
+      var on = picked === i;
+      html += '<button type="button" class="option ' + (on ? 'is-picked' : '') + '" data-opt="' + i + '" style="animation-delay:' + (i * 45) + 'ms">'
+        + '<span class="opt-icon">' + o.icon + '</span>'
+        + '<span class="opt-body">' + esc(o.text) + '</span>'
+        + '<span class="opt-key">' + (i + 1) + '</span>'
+        + '</button>';
+    });
+    $('#options').innerHTML = html;
+    state.locked = false;
+
+    var wrap = $('#question-wrap');
+    wrap.classList.remove('q-in');
+    void wrap.offsetWidth;
+    if (dir) wrap.classList.add('q-in');
+  }
+
+  function selectOption(i) {
+    if (state.locked) return;
+    state.answers[state.index] = i;
+    state.locked = true;
+    if (state.index === TOTAL - 1) state.lastClickAt = performance.now();
+
+    var opts = $$('.option');
+    opts.forEach(function (el, idx) {
+      el.classList.toggle('is-picked', idx === i);
+      el.classList.toggle('is-dim', idx !== i);
+    });
+
+    setTimeout(function () {
+      if (state.index < TOTAL - 1) {
+        state.index++;
+        renderQuestion('next');
+        state.locked = false;
+      } else {
+        state.locked = false;
+        finish();
+      }
+    }, 200);
+  }
+
+  function stepBack() {
+    if (state.index === 0) return;
+    state.backCount++;
+    state.index--;
+    renderQuestion('back');
+  }
+
+  /* ------------------------------------------------------------------
+     计分
+     ------------------------------------------------------------------ */
+  function scoreAnswers(answers) {
+    var counts = {};
+    D.axes.forEach(function (ax) { counts[ax.key] = { L: 0, R: 0 }; });
+
+    var raw = '';
+    D.questions.forEach(function (q, i) {
+      var pick = answers[i] == null ? 0 : answers[i];
+      var o = q.options[pick];
+      counts[q.axis][o.side] += o.w;
+      raw += o.side;
+    });
+
+    var resultSig = '';
+    var traits = [];
+    var dims = D.axes.map(function (ax) {
+      var L = counts[ax.key].L, R = counts[ax.key].R;
+      var total = L + R;
+      var tie = L === R;
+      var winner = L > R ? 'L' : 'R';
+      if (tie) winner = (hash(raw + ax.key) % 2 === 0) ? 'L' : 'R';
+      resultSig += winner;
+      traits.push(winner === 'L' ? ax.left.label : ax.right.label);
+      return {
+        axis: ax,
+        left: L,
+        right: R,
+        pct: total ? Math.round(L / total * 100) : 50,
+        winner: winner,
+        tie: tie
+      };
+    });
+
+    var strength = Math.round(dims.reduce(function (s, d) {
+      var total = d.left + d.right || 1;
+      return s + Math.max(d.left, d.right) / total;
+    }, 0) / dims.length * 100);
+
+    return { raw: raw, resultSig: resultSig, dims: dims, traits: traits, strength: strength };
+  }
+
+  function pickHidden(elapsed, backs) {
+    if (elapsed > 0 && elapsed <= 15000) return 'schrodinger';
+    if (backs >= 3) return 'boomerang';
+    if (state.plays >= 3 && state.hiddenHistory.indexOf('juan') === -1) return 'juan';
+    return null;
+  }
+
+  function assembleResult(dog, scored, ts, elapsed, backs) {
+    var id = ('000000' + hash(dog.id + scored.raw + ts).toString(16).toUpperCase()).slice(-6);
+    return {
+      dog: dog,
+      hidden: !!dog.hidden,
+      dims: scored.dims,
+      traits: scored.traits,
+      strength: scored.strength,
+      sig: scored.resultSig,
+      elapsed: elapsed,
+      backs: backs,
+      plays: state.plays,
+      ts: ts,
+      serial: 'DOGE-' + new Date(ts).getFullYear() + '-' + id
+    };
+  }
+
+  function buildResult(answers, ts, elapsed, backs) {
+    var scored = scoreAnswers(answers);
+    var hiddenId = pickHidden(elapsed, backs);
+    var dog = hiddenId ? D.byId[hiddenId] : D.bySig[scored.resultSig];
+    return assembleResult(dog, scored, ts, elapsed, backs);
+  }
+
+  function finish() {
+    var elapsed = Math.max(0, (state.lastClickAt || performance.now()) - state.startedAt);
+    state.plays += 1;
+    var res = buildResult(state.answers, Date.now(), elapsed, state.backCount);
+    state.result = res;
+    state.ts = res.ts;
+
+    if (res.hidden) {
+      if (state.hiddenHistory.indexOf(res.dog.id) === -1) state.hiddenHistory.push(res.dog.id);
+    } else if (state.history.indexOf(res.dog.id) === -1) {
+      state.history.push(res.dog.id);
+    }
+
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({
+        id: res.dog.id,
+        answers: state.answers,
+        ts: res.ts,
+        elapsed: Math.round(res.elapsed),
+        backs: res.backs,
+        plays: state.plays,
+        history: state.history,
+        hiddenHistory: state.hiddenHistory
+      }));
+    } catch (e) { /* 隐身模式也能玩 */ }
+
+    paintResume();
+    paintGalleryCount();
+    renderResult(res);
+    show('result');
+    requestAnimationFrame(function () { window.scrollTo(0, 0); });
+    confetti();
+  }
+
+  /* ------------------------------------------------------------------
+     结果页
+     ------------------------------------------------------------------ */
+  function traitChips(res) {
+    return '<div class="trait-row">' + res.traits.map(function (t, i) {
+      return '<span class="trait-chip" title="' + esc(D.axes[i].name) + '">' + esc(t) + '</span>';
+    }).join('') + '</div>';
+  }
+
+  function dimHTML(d) {
+    var ax = d.axis;
+    var onLeft = d.winner === 'L';
+    var leftPct = d.pct;
+    var rightPct = 100 - d.pct;
+    return '<div class="dim">'
+      + '<div class="dim-name">' + ax.name + '</div>'
+      + '<div class="dim-head">'
+      + '<span class="dim-side ' + (onLeft ? 'is-on' : '') + '">' + ax.left.label + '<b>' + leftPct + '%</b></span>'
+      + '<span class="dim-side ' + (!onLeft ? 'is-on' : '') + '">' + ax.right.label + '<b>' + rightPct + '%</b></span>'
+      + '</div>'
+      + '<div class="dim-track"><div class="dim-fill" style="width:' + leftPct + '%"></div></div>'
+      + '<div class="dim-axis-label"><span>' + ax.left.desc + '</span><span>' + ax.right.desc + '</span></div>'
+      + '</div>';
+  }
+
+  function matchHTML(label, dog, why) {
+    return '<button type="button" class="match" data-act="open-dog" data-id="' + dog.id + '" style="--match-accent:' + dog.accent + '">'
+      + '<span class="match-dog">' + dogMark(dog) + '</span>'
+      + '<span class="match-body">'
+      + '<span class="match-label">' + label + '</span>'
+      + '<span class="match-name">' + esc(dog.breed) + '<em>' + esc(dog.title) + '</em></span>'
+      + '<span class="match-why">' + esc(why) + '</span>'
+      + '</span></button>';
+  }
+
+  function resultActions(hidden) {
+    return '<div class="result-actions">'
+      + '<button class="btn btn-primary" data-act="share" type="button">生成分享卡</button>'
+      + '<button class="btn btn-ghost" data-act="copy" type="button">复制文案</button>'
+      + '<button class="btn btn-ghost" data-act="retake" type="button">再测一次</button>'
+      + '<span class="spacer"></span>'
+      + '<button class="btn btn-ghost" data-act="gallery" type="button">' + (hidden ? '打开隐藏图鉴' : '打开犬格图鉴') + '</button>'
+      + '</div>';
+  }
+
+  function renderResult(res) {
+    if (res.hidden) { renderHiddenResult(res); return; }
+    var dog = res.dog;
+    var best = D.byId[dog.best];
+    var clash = D.byId[dog.clash];
+    var date = new Date(res.ts);
+    var dateStr = date.getFullYear() + '.' + pad2(date.getMonth() + 1) + '.' + pad2(date.getDate());
+
+    var html = ''
+      + '<div class="result-hero" style="--dog-accent:' + dog.accent + '">'
+      + '<div class="result-dog">' + dogMark(dog) + '</div>'
+      + '<div class="result-main">'
+      + '<div class="result-topline"><span class="rarity">汪星稀有度 ' + dog.rarity.toFixed(1) + '%</span><span class="result-no">' + res.serial + '</span></div>'
+      + '<h2 class="result-breed">' + esc(dog.breed) + '</h2>'
+      + '<div class="result-sub"><span class="en">' + dog.en + '</span><span class="result-title">' + esc(dog.title) + '</span></div>'
+      + traitChips(res)
+      + '<p class="result-quote">「' + esc(dog.quote) + '」</p>'
+      + '</div></div>'
+
+      + '<p class="result-desc">' + esc(dog.desc) + '</p>'
+      + '<div class="result-tags">' + dog.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>'
+
+      + '<div class="dims" style="--dog-accent:' + dog.accent + ';--dog-deep:' + mix(dog.accent, INK, 0.3) + '">' + res.dims.map(dimHTML).join('') + '</div>'
+
+      + '<div class="panels">'
+      + '<div class="panel"><h3>天赋技能</h3><ul>' + dog.good.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'
+      + '<div class="panel panel-warn"><h3>隐藏 bug</h3><ul>' + dog.bad.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'
+      + '<div class="panel"><h3>逆鳞 / 雷区</h3><p>' + esc(dog.like) + '</p></div>'
+      + '</div>'
+
+      + '<div class="matches">'
+      + matchHTML('最合拍', best, dog.bestWhy)
+      + matchHTML('天敌', clash, dog.clashWhy)
+      + '</div>'
+
+      + '<div class="id-strip">'
+      + '<span>汪星身份证</span><b>' + res.serial + '</b>'
+      + '<span class="sep"></span>'
+      + '<span>犬格纯度 <b>' + res.strength + '%</b></span>'
+      + '<span>生成于 <b>' + dateStr + '</b></span>'
+      + '</div>'
+
+      + resultActions(false)
+      + '<p class="disclaimer">测试结果由 20 道题实时计算，仅供娱乐。<br>你是什么狗，最终解释权归你自己。</p>';
+
+    var shell = $('#result-shell');
+    shell.classList.remove('is-hidden');
+    shell.innerHTML = html;
+    shell.style.setProperty('--dog-accent', dog.accent);
+  }
+
+  function renderHiddenResult(res) {
+    var dog = res.dog;
+    var elapsedSec = (res.elapsed / 1000).toFixed(1);
+    var conditionHTML;
+    if (res.dog.id === 'schrodinger') {
+      conditionHTML = '<div><span>触发条件</span><b>20 道题在 15 秒内答完</b></div><div><span>本次用时</span><b>' + elapsedSec + ' 秒</b></div>';
+    } else if (res.dog.id === 'boomerang') {
+      conditionHTML = '<div><span>触发条件</span><b>答题过程中回头 3 次以上</b></div><div><span>本次回头</span><b>' + res.backs + ' 次</b></div>';
+    } else {
+      conditionHTML = '<div><span>触发条件</span><b>重复完成测试 3 次以上</b></div><div><span>这是你的第</span><b>' + (res.plays || 3) + ' 次</b></div>';
+    }
+
+    var html = ''
+      + '<div class="hidden-hero" style="--dog-accent:' + dog.accent + '">'
+      + '<div class="hidden-ribbon">HIDDEN · 隐藏犬格</div>'
+      + '<div class="hidden-hero-grid">'
+      + '<div class="result-dog hidden-dog">' + dogMark(dog) + '</div>'
+      + '<div class="hidden-main">'
+      + '<p class="hidden-kicker">你触发了隐藏犬格</p>'
+      + '<h2 class="hidden-breed">' + esc(dog.breed) + '</h2>'
+      + '<div class="result-sub"><span class="en">' + dog.en + '</span><span class="result-title">' + esc(dog.title) + '</span></div>'
+      + '<p class="result-quote">「' + esc(dog.quote) + '」</p>'
+      + '</div></div>'
+      + '</div>'
+
+      + '<div class="hidden-meta">' + conditionHTML
+      + '<div><span>稀有度</span><b>传说级 · ' + dog.rarity.toFixed(2) + '%</b></div>'
+      + '</div>'
+
+      + '<p class="result-desc">' + esc(dog.desc) + '</p>'
+      + '<div class="result-tags">' + dog.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>'
+
+      + '<div class="panels">'
+      + '<div class="panel"><h3>隐藏天赋</h3><ul>' + dog.good.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'
+      + '<div class="panel panel-warn"><h3>副作用</h3><ul>' + dog.bad.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'
+      + '<div class="panel"><h3>逆鳞 / 雷区</h3><p>' + esc(dog.like) + '</p></div>'
+      + '</div>'
+
+      + '<div class="hidden-note">' + esc(dog.hint) + ' · 这只狗不会出现在常规图鉴里。</div>'
+
+      + '<div class="id-strip">'
+      + '<span>隐藏档案编号</span><b>' + res.serial + '</b>'
+      + '<span class="sep"></span>'
+      + '<span>已解锁 <b>' + collectedCount() + '/' + TOTAL_DOGS + '</b></span>'
+      + '</div>'
+
+      + resultActions(true)
+      + '<p class="disclaimer">隐藏犬格覆盖了本次常规结果。<br>不看题和反复回头，都是会被记住的。</p>';
+
+    var shell = $('#result-shell');
+    shell.classList.add('is-hidden');
+    shell.innerHTML = html;
+    shell.style.setProperty('--dog-accent', dog.accent);
+  }
+
+  /* ------------------------------------------------------------------
+     图鉴
+     ------------------------------------------------------------------ */
+  function unlocked(id) {
+    return state.history.indexOf(id) !== -1 || state.hiddenHistory.indexOf(id) !== -1;
+  }
+
+  function openGallery(id) {
+    var view = $('#gallery-view');
+    var detail = $('#gallery-detail');
+    detail.hidden = true;
+    view.hidden = false;
+    $('#gallery-title').textContent = '16 只狗，16 种活法';
+    $('#gallery-sub').textContent = '点开任意一只查看完整档案 · 另有 3 个加密犬格';
+
+    var normalCards = D.dogs.map(function (d) {
+      var mine = state.result && state.result.dog.id === d.id;
+      return '<button type="button" class="g-card ' + (mine ? 'is-you' : '') + '" data-act="open-dog" data-id="' + d.id + '" style="--g-accent:' + d.accent + '">'
+        + (mine ? '<span class="g-you">你</span>' : '')
+        + '<div class="g-card-art">' + dogMark(d) + '</div>'
+        + '<div class="g-card-info"><div class="g-card-name">' + esc(d.breed) + '</div>'
+        + '<div class="g-card-meta"><span>' + esc(d.title) + '</span><span>' + (unlocked(d.id) ? '已收录' : '未解锁') + '</span></div></div>'
+        + '</button>';
+    }).join('');
+
+    var hiddenCards = D.hiddenDogs.map(function (d) {
+      return '<button type="button" class="g-card g-card-hidden ' + (unlocked(d.id) ? 'is-unlocked' : '') + '" data-act="open-hidden" data-id="' + d.id + '">'
+        + '<div class="g-card-art"><span class="mystery-mark">?</span></div>'
+        + '<div class="g-card-info"><div class="g-card-name">???</div>'
+        + '<div class="g-card-meta"><span>隐藏犬格</span><span>' + (unlocked(d.id) ? '已解锁' : '未解锁') + '</span></div></div>'
+        + '</button>';
+    }).join('');
+
+    view.innerHTML = '<div class="hidden-gallery">'
+      + '<div class="hidden-gallery-head"><span>隐藏犬格</span><em>' + state.hiddenHistory.length + '/' + D.hiddenDogs.length + '</em><small>达成未知条件才会出现</small></div>'
+      + '<div class="hidden-body">'
+      + '<div class="hidden-grid">' + hiddenCards + '</div>'
+      + '<p class="hidden-tease"><b>有些狗不在名册上。</b><br>它们的档案被涂黑，名字被打码。<br>钥匙不在档案馆 —— 在你答题的方式里。</p>'
+      + '</div></div>'
+      + '<div class="gallery-grid">' + normalCards + '</div>';
+
+    openModal('gallery');
+    if (id && D.byId[id]) {
+      if (D.byId[id].hidden) showHiddenDetail(id); else showGalleryDetail(id);
+    }
+  }
+
+  function showGalleryDetail(id) {
+    var d = D.byId[id];
+    if (!d || d.hidden) return;
+    var best = D.byId[d.best], clash = D.byId[d.clash];
+    var mine = state.result && state.result.dog.id === d.id;
+    $('#gallery-view').hidden = true;
+    var detail = $('#gallery-detail');
+    detail.hidden = false;
+    $('#gallery-title').textContent = '犬格档案 · ' + d.breed;
+    $('#gallery-sub').textContent = '汪星稀有度 ' + d.rarity.toFixed(1) + '% · ' + (mine ? '已收录，这就是你' : (unlocked(d.id) ? '已收录' : '未解锁'));
+
+    detail.innerHTML = ''
+      + '<button class="g-detail-back" data-act="gallery-back" type="button">← 返回犬格图鉴</button>'
+      + '<div class="g-detail-top" style="--g-accent:' + d.accent + '">'
+      + '<div class="g-detail-art">' + dogMark(d) + '</div>'
+      + '<div>'
+      + '<div class="g-detail-name">' + esc(d.breed) + ' · ' + esc(d.title) + '</div>'
+      + '<div class="g-detail-tags">' + d.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>'
+      + '<p class="g-detail-quote">「' + esc(d.quote) + '」</p>'
+      + '</div></div>'
+      + '<div class="g-detail-body">'
+      + '<p class="result-desc" style="text-align:left;margin:0 0 14px">' + esc(d.desc) + '</p>'
+      + '<div class="panels">'
+      + '<div class="panel"><h3>天赋技能</h3><ul>' + d.good.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'
+      + '<div class="panel panel-warn"><h3>隐藏 bug</h3><ul>' + d.bad.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>'
+      + '<div class="panel"><h3>合拍 & 天敌</h3><p>' + esc(best.breed) + '：' + esc(d.bestWhy) + '<br><br>' + esc(clash.breed) + '：' + esc(d.clashWhy) + '</p></div>'
+      + '</div></div>'
+      + '<p class="g-detail-note">'
+      + (mine ? '这就是你。' : (unlocked(d.id) ? '你已经解锁过这只狗。' : '还没解锁这只狗 —— 再测一次，或者换个心情再答一遍。'))
+      + '</p>';
+
+    var panel = $('.modal-gallery');
+    if (panel) panel.scrollTop = 0;
+  }
+
+  function showHiddenDetail(id) {
+    var d = D.byId[id];
+    if (!d || !d.hidden) return;
+    var open = unlocked(id);
+    $('#gallery-view').hidden = true;
+    var detail = $('#gallery-detail');
+    detail.hidden = false;
+    $('#gallery-title').textContent = '隐藏犬格';
+    $('#gallery-sub').textContent = '档案已加密 · 不予展示';
+
+    detail.innerHTML = ''
+      + '<button class="g-detail-back" data-act="gallery-back" type="button">← 返回犬格图鉴</button>'
+      + '<div class="mystery-detail">'
+      + '<div class="mystery-art"><span>?</span></div>'
+      + '<div class="mystery-copy">'
+      + '<p class="mystery-kicker">HIDDEN / CLASSIFIED</p>'
+      + '<h3>档案已加密</h3>'
+      + '<p>这只狗不在常规图鉴里，也不会留下名字。</p>'
+      + '<p class="mystery-hint">传闻：' + esc(d.hint) + '</p>'
+      + '<p class="mystery-status">' + (open ? '你见过它，但它没有留下名字。' : '尚未解锁。') + '</p>'
+      + '</div></div>';
+
+    var panel = $('.modal-gallery');
+    if (panel) panel.scrollTop = 0;
+  }
+
+  /* ------------------------------------------------------------------
+     分享卡
+     ------------------------------------------------------------------ */
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function wrapLines(ctx, text, maxWidth, maxLines) {
+    var lines = [];
+    var line = '';
+    for (var i = 0; i < text.length; i++) {
+      var test = line + text[i];
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line);
+        line = text[i];
+        if (lines.length === maxLines - 1) {
+          for (var j = i + 1; j < text.length; j++) line += text[j];
+          break;
+        }
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+    return lines.slice(0, maxLines);
+  }
+
+  function drawPaw(ctx, cx, cy, size, color) {
+    ctx.save();
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + 0.25 * size, 0.34 * size, 0.27 * size, 0, 0, Math.PI * 2);
+    ctx.fill();
+    var toes = [
+      [-0.55, 0.02, 0.15, 0.20, -0.28],
+      [-0.20, -0.22, 0.15, 0.21, -0.06],
+      [0.16, -0.24, 0.15, 0.20, 0.10],
+      [0.50, 0.00, 0.14, 0.19, 0.30]
+    ];
+    toes.forEach(function (t) {
+      ctx.beginPath();
+      ctx.ellipse(cx + t[0] * size, cy + t[1] * size, t[2] * size, t[3] * size, t[4], 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  function drawShare(dog, res) {
+    var canvas = $('#share-canvas');
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+    var hidden = !!res.hidden;
+    var bg = hidden ? '#17130F' : '#F5EEE0';
+    var fg = hidden ? '#F5EEE0' : INK;
+    var soft = hidden ? 'rgba(245,238,224,.55)' : 'rgba(36,29,24,.55)';
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.save();
+    ctx.globalAlpha = hidden ? 0.22 : 0.85;
+    ctx.fillStyle = dog.accent;
+    ctx.beginPath();
+    ctx.arc(940, 130, 330, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = hidden ? 0.12 : 0.5;
+    ctx.beginPath();
+    ctx.arc(80, 1250, 240, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = fg;
+    ctx.lineWidth = 6;
+    roundRect(ctx, 36, 36, W - 72, H - 72, 40);
+    ctx.stroke();
+
+    ctx.fillStyle = fg;
+    ctx.font = '900 40px "Helvetica Neue", "Arial Black", sans-serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText('DOGE·16', 78, 124);
+    ctx.font = '700 20px "PingFang SC", "Helvetica Neue", sans-serif';
+    ctx.fillStyle = soft;
+    ctx.textAlign = 'right';
+    ctx.fillText(hidden ? '隐藏犬格 / CLASSIFIED' : '犬格档案馆 / 16 DOGS', W - 78, 122);
+
+    /* 单字印章 */
+    ctx.beginPath();
+    ctx.arc(540, 380, 205, 0, Math.PI * 2);
+    ctx.fillStyle = hidden ? '#2A231D' : dog.accent;
+    ctx.fill();
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = fg;
+    ctx.stroke();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(540, 380, 199, 0, Math.PI * 2);
+    ctx.clip();
+    drawPaw(ctx, 540, 405, 268, hidden ? 'rgba(245,238,224,.07)' : 'rgba(36,29,24,.07)');
+    ctx.fillStyle = hidden ? dog.accent : INK;
+    ctx.font = '900 200px "Songti SC", "STSong", serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(hidden ? '?' : dog.breed.charAt(0), 540, 390);
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(690, 520);
+    ctx.rotate(-0.12);
+    ctx.strokeStyle = hidden ? 'rgba(245,238,224,.35)' : 'rgba(36,29,24,.38)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, -58, -15, 116, 30, 4);
+    ctx.stroke();
+    ctx.fillStyle = hidden ? 'rgba(245,238,224,.6)' : 'rgba(36,29,24,.55)';
+    ctx.font = '800 14px "PingFang SC", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(hidden ? 'CLASSIFIED' : '犬格档案', 0, 1);
+    ctx.restore();
+
+    if (hidden) finishHiddenShare(dog, res, ctx, W, H, fg, soft);
+    else finishShare(dog, res, ctx, W, H, fg, soft);
+  }
+
+  function finishShare(dog, res, ctx, W, H, fg, soft) {
+    ctx.textAlign = 'center';
+    ctx.fillStyle = soft;
+    ctx.font = '700 22px "PingFang SC", sans-serif';
+    ctx.fillText('你 的 犬 格 是', W / 2, 690);
+
+    ctx.fillStyle = fg;
+    ctx.font = '900 96px "PingFang SC", sans-serif';
+    ctx.fillText(dog.breed, W / 2, 796);
+
+    ctx.font = '800 30px "PingFang SC", sans-serif';
+    ctx.fillStyle = soft;
+    ctx.fillText('· ' + dog.title + ' ·', W / 2, 846);
+
+    ctx.fillStyle = 'rgba(36,29,24,.78)';
+    ctx.font = '600 27px "PingFang SC", sans-serif';
+    var lines = wrapLines(ctx, '「' + dog.quote + '」', 780, 2);
+    lines.forEach(function (l, i) {
+      ctx.fillText(l, W / 2, 906 + i * 40);
+    });
+
+    /* 四维形容词 */
+    ctx.font = '700 22px "PingFang SC", sans-serif';
+    var gap = 12;
+    var widths = res.traits.map(function (t) { return ctx.measureText(t).width + 38; });
+    var total = widths.reduce(function (a, b) { return a + b; }, 0) + gap * (res.traits.length - 1);
+    var tx = W / 2 - total / 2;
+    var ty = 1000;
+    res.traits.forEach(function (t, i) {
+      var w = widths[i];
+      ctx.fillStyle = PAPER;
+      ctx.strokeStyle = INK;
+      ctx.lineWidth = 2.5;
+      roundRect(ctx, tx, ty, w, 38, 19);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(36,29,24,.8)';
+      ctx.textAlign = 'center';
+      ctx.fillText(t, tx + w / 2, ty + 26);
+      tx += w + gap;
+    });
+
+    /* 底部信息条 */
+    ctx.fillStyle = INK;
+    roundRect(ctx, 72, 1082, W - 144, 168, 26);
+    ctx.fill();
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(255,252,245,.5)';
+    ctx.font = '700 17px "PingFang SC", sans-serif';
+    ctx.fillText('最 合 拍', 112, 1124);
+    ctx.fillText('犬 格 纯 度', 424, 1124);
+    ctx.fillText('汪 星 稀 有 度', 712, 1124);
+
+    ctx.fillStyle = PAPER;
+    ctx.font = '800 34px "PingFang SC", sans-serif';
+    ctx.fillText(D.byId[dog.best].breed, 112, 1176);
+    ctx.fillText(res.strength + '%', 424, 1176);
+    ctx.fillText(dog.rarity.toFixed(1) + '%', 712, 1176);
+
+    ctx.strokeStyle = 'rgba(255,252,245,.22)';
+    ctx.lineWidth = 2;
+    [396, 684].forEach(function (x) {
+      ctx.beginPath();
+      ctx.moveTo(x, 1106);
+      ctx.lineTo(x, 1206);
+      ctx.stroke();
+    });
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = soft;
+    ctx.font = '700 20px "PingFang SC", sans-serif';
+    ctx.fillText('20 道题 · 16 种犬格 · 你是哪种狗？', 78, 1302);
+
+    ctx.textAlign = 'right';
+    ctx.fillStyle = fg;
+    ctx.font = '900 20px "Helvetica Neue", sans-serif';
+    ctx.fillText(res.serial, W - 78, 1302);
+  }
+
+  function finishHiddenShare(dog, res, ctx, W, H, fg, soft) {
+    var elapsed = (res.elapsed / 1000).toFixed(1);
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = dog.accent;
+    ctx.font = '800 22px "PingFang SC", sans-serif';
+    ctx.fillText('H I D D E N   T Y P E', W / 2, 676);
+
+    ctx.fillStyle = fg;
+    ctx.font = '900 66px "PingFang SC", sans-serif';
+    ctx.fillText(dog.breed, W / 2, 758);
+
+    ctx.font = '800 28px "PingFang SC", sans-serif';
+    ctx.fillStyle = soft;
+    ctx.fillText('· ' + dog.title + ' ·', W / 2, 808);
+
+    ctx.fillStyle = fg;
+    ctx.font = '600 26px "PingFang SC", sans-serif';
+    var lines = wrapLines(ctx, '「' + dog.quote + '」', 760, 2);
+    lines.forEach(function (l, i) { ctx.fillText(l, W / 2, 874 + i * 38); });
+
+    ctx.fillStyle = 'rgba(245,238,224,.1)';
+    roundRect(ctx, 110, 958, W - 220, 78, 18);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245,238,224,.22)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, 110, 958, W - 220, 78, 18);
+    ctx.stroke();
+    ctx.fillStyle = soft;
+    ctx.font = '700 19px "PingFang SC", sans-serif';
+    ctx.fillText('触发条件', W / 2 - 130, 990);
+    ctx.fillStyle = fg;
+    ctx.font = '800 24px "PingFang SC", sans-serif';
+    ctx.fillText(res.dog.condition || '未知', W / 2 + 70, 990);
+    ctx.fillStyle = soft;
+    ctx.font = '600 16px "PingFang SC", sans-serif';
+    var subline = res.dog.id === 'boomerang'
+      ? '本次回头 ' + res.backs + ' 次'
+      : (res.dog.id === 'juan' ? '这是第 ' + (res.plays || 3) + ' 次测试' : '本次用时 ' + elapsed + ' 秒');
+    ctx.fillText(subline, W / 2, 1020);
+
+    ctx.fillStyle = INK;
+    roundRect(ctx, 72, 1082, W - 144, 168, 26);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245,238,224,.16)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, 72, 1082, W - 144, 168, 26);
+    ctx.stroke();
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(255,252,245,.5)';
+    ctx.font = '700 17px "PingFang SC", sans-serif';
+    ctx.fillText('隐 藏 档 案', 112, 1124);
+    ctx.fillText('汪 星 稀 有 度', 712, 1124);
+    ctx.fillStyle = PAPER;
+    ctx.font = '800 30px "PingFang SC", sans-serif';
+    ctx.fillText('不予展示', 112, 1176);
+    ctx.fillText('传说级', 712, 1176);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = soft;
+    ctx.font = '700 20px "PingFang SC", sans-serif';
+    ctx.fillText('这只狗不在常规图鉴里。', 78, 1302);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = fg;
+    ctx.font = '900 20px "Helvetica Neue", sans-serif';
+    ctx.fillText(res.serial, W - 78, 1302);
+  }
+
+  function openShare() {
+    if (!state.result) return;
+    openModal('share');
+    drawShare(state.result.dog, state.result);
+  }
+
+  function downloadShare() {
+    var canvas = $('#share-canvas');
+    var name = 'DOGE16-' + state.result.dog.breed + '.png';
+    try {
+      canvas.toBlob(function (blob) {
+        if (!blob) return;
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+        toast('已保存，去发朋友圈吧');
+      }, 'image/png');
+    } catch (e) {
+      toast('保存失败，长按图片试试');
+    }
+  }
+
+  function shareText() {
+    var d = state.result.dog;
+    if (state.result.hidden) {
+      return '🐾 我触发了隐藏犬格：' + d.breed + ' · ' + d.title + '\n'
+        + '「' + d.quote + '」\n\n'
+        + d.tags.join(' / ') + '\n'
+        + '触发条件：' + d.condition + '\n\n'
+        + '来测测你是哪种狗 → DOGE·16 汪汪人格';
+    }
+    return '🐾 我的犬格是 ' + d.breed + ' · ' + d.title + '\n'
+      + state.result.traits.join(' / ') + '\n'
+      + '「' + d.quote + '」\n\n'
+      + '汪星稀有度 ' + d.rarity.toFixed(1) + '%\n\n'
+      + '来测测你是哪种狗 → DOGE·16 汪汪人格';
+  }
+
+  function copyShare() {
+    var text = shareText();
+    var done = function () { toast('文案已复制'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { toast('复制失败，手动选一下吧'); }
+    ta.remove();
+  }
+
+  /* ------------------------------------------------------------------
+     弹层 / 提示 / 彩带
+     ------------------------------------------------------------------ */
+  function openModal(id) {
+    var m = $('#' + id + '-modal');
+    if (!m) return;
+    m.classList.add('is-open');
+    m.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeModal(id) {
+    var m = $('#' + id + '-modal');
+    if (!m) return;
+    m.classList.remove('is-open');
+    m.setAttribute('aria-hidden', 'true');
+    if (!$('.modal.is-open')) document.body.classList.remove('no-scroll');
+  }
+
+  var toastTimer = null;
+  function toast(msg) {
+    var el = $('#toast');
+    el.textContent = msg;
+    el.classList.add('is-show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove('is-show'); }, 2200);
+  }
+
+  function confetti() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var canvas = $('#confetti');
+    var ctx = canvas.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    var colors = ['#F15A24', '#FFD34D', '#3B5BF5', '#A8E6C8', '#FFC2D1', '#1E1A16'];
+    var parts = [];
+    for (var i = 0; i < 120; i++) {
+      parts.push({
+        x: window.innerWidth * (0.15 + Math.random() * 0.7),
+        y: -30 - Math.random() * 160,
+        vx: (Math.random() - 0.5) * 3.4,
+        vy: 2 + Math.random() * 3.4,
+        r: 5 + Math.random() * 7,
+        rot: Math.random() * Math.PI,
+        vr: (Math.random() - 0.5) * 0.3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        circle: Math.random() < 0.25
+      });
+    }
+    var start = performance.now();
+
+    function frame(t) {
+      var elapsed = t - start;
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.globalAlpha = Math.max(0, 1 - Math.max(0, elapsed - 1700) / 1300);
+      parts.forEach(function (p) {
+        p.vy += 0.035;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+        ctx.fillStyle = p.color;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        if (p.circle) {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.r / 2.4, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2);
+        }
+        ctx.restore();
+      });
+      ctx.globalAlpha = 1;
+      if (elapsed < 3000) requestAnimationFrame(frame);
+      else ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ------------------------------------------------------------------
+     事件
+     ------------------------------------------------------------------ */
+  function bind() {
+    $('#start-btn').addEventListener('click', startTest);
+    $('#brand-btn').addEventListener('click', function () { show('landing'); });
+    $('#gallery-btn').addEventListener('click', function () { openGallery(); });
+    $('#quit-btn').addEventListener('click', function () { show('landing'); });
+    $('#back-btn').addEventListener('click', stepBack);
+    $('#resume-btn').addEventListener('click', function () {
+      if (!state.result) return;
+      renderResult(state.result);
+      show('result');
+    });
+
+    $('#options').addEventListener('click', function (e) {
+      var btn = e.target.closest('.option');
+      if (btn) selectOption(Number(btn.dataset.opt));
+    });
+
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-act]');
+      if (t) {
+        var act = t.dataset.act;
+        if (act === 'share') openShare();
+        else if (act === 'copy') copyShare();
+        else if (act === 'retake') startTest();
+        else if (act === 'gallery') openGallery();
+        else if (act === 'open-dog') openGallery(t.dataset.id);
+        else if (act === 'open-hidden') openGallery(t.dataset.id);
+        else if (act === 'gallery-back') openGallery();
+        return;
+      }
+      var close = e.target.closest('[data-close]');
+      if (close) closeModal(close.dataset.close);
+    });
+
+    $('#download-btn').addEventListener('click', downloadShare);
+    $('#copy-btn').addEventListener('click', copyShare);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        if ($('.modal.is-open')) {
+          closeModal('gallery');
+          closeModal('share');
+        }
+        return;
+      }
+      if (state.screen !== 'quiz' || $('.modal.is-open')) return;
+      if (e.key >= '1' && e.key <= '4') selectOption(Number(e.key) - 1);
+      else if (e.key === 'ArrowLeft') stepBack();
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     开发预览：?preview=quiz / ?preview=golden / ?preview=schrodinger
+     ------------------------------------------------------------------ */
+  function previewFromQuery() {
+    var params = new URLSearchParams(window.location.search);
+    var p = params.get('preview');
+    if (!p) return false;
+    if (p === 'quiz') { startTest(); return true; }
+    var dog = D.byId[p];
+    if (!dog) return false;
+
+    var dims, traits;
+    if (dog.hidden) {
+      dims = D.axes.map(function (ax, i) {
+        var winner = i % 2 ? 'R' : 'L';
+        return { axis: ax, left: winner === 'L' ? 4 : 1, right: winner === 'R' ? 4 : 1, pct: winner === 'L' ? 80 : 20, winner: winner, tie: false };
+      });
+      traits = ['社牛', '脑洞', '感性', '随性'];
+    } else {
+      dims = D.axes.map(function (ax, i) {
+        var winner = dog.sig[i];
+        return { axis: ax, left: winner === 'L' ? 4 : 1, right: winner === 'R' ? 4 : 1, pct: winner === 'L' ? 80 : 20, winner: winner, tie: false };
+      });
+      traits = dims.map(function (d, i) { return d.winner === 'L' ? D.axes[i].left.label : D.axes[i].right.label; });
+    }
+
+    state.plays = dog.id === 'juan' ? 3 : 1;
+    state.result = {
+      dog: dog, hidden: !!dog.hidden, dims: dims, traits: traits, strength: 78,
+      sig: 'preview', elapsed: dog.hidden ? 9200 : 86000, backs: dog.id === 'boomerang' ? 4 : 0,
+      plays: state.plays, ts: Date.now(), serial: 'DOGE-2026-DEMO01'
+    };
+    if (dog.hidden) {
+      if (state.hiddenHistory.indexOf(dog.id) === -1) state.hiddenHistory.push(dog.id);
+    } else if (state.history.indexOf(dog.id) === -1) {
+      state.history.push(dog.id);
+    }
+    paintResume();
+    paintGalleryCount();
+    renderResult(state.result);
+    show('result');
+    var open = params.get('open');
+    if (open === 'share') setTimeout(openShare, 150);
+    if (open === 'gallery') setTimeout(function () { openGallery(); }, 150);
+    return true;
+  }
+
+  function init() {
+    paintHero(D.dogs[0], false);
+    paintMarquee();
+    loadSaved();
+    paintGalleryCount();
+    bind();
+    if (!previewFromQuery()) startHeroLoop();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+</body>
+</html>
